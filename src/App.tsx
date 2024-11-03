@@ -16,10 +16,10 @@ export default function App() {
     <MantineProvider theme={theme}>
       <FormValuesContextProvider>
         <MultiStepFormContextProvider>
-          {/* <SystemTypePage />
+          <SystemTypePage />
           <InverterTypePage />
           <PanelsTypePage />
-          <ConectivityTypePage /> */}
+          <ConectivityTypePage />
           <MiscType />
         </MultiStepFormContextProvider>
       </FormValuesContextProvider>
