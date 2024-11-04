@@ -63,7 +63,7 @@ export type ACCableProps = {
 
     Length: number
 
-    Total?: number
+    Total: number
 }
 
 export type SolarCableProps = {

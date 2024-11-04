@@ -75,11 +75,11 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
                   description="Select the panels type and the number of panels"
                 />
                 <Stepper.Step
-                  label="Choose the connectivity"
+                  label="Alege conectica"
                   description="Complete the fields with proper information about connectivity elements"
                 />
                 <Stepper.Step
-                  label="Add Misc details"
+                  label="Adauga transport"
                   description="Complete details like transport, gas, poundage, etc."
                 />
               </Stepper>
