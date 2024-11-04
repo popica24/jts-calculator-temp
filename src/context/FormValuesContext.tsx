@@ -2,17 +2,25 @@ import { createContext, ReactNode, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   ACCableProps,
+  ACFuseProps,
   AluminiumProfileProps,
   CableDuctProps,
   CarProps,
   CopexCableProps,
+  CornerClampsProps,
   FusibleFuseProps,
   GasProps,
   GroundingCableProps,
+  IntermediateClampsProps,
   InverterType,
   MC4Props,
+  MiniRailProps,
+  MixClampsProps,
+  MontageTypes,
   OboProps,
   PanelType,
+  PrezoaneProps,
+  RentProps,
   ScrewProps,
   SmartMeterPanel,
   SolarCableProps,
@@ -20,10 +28,12 @@ import {
   SurgesProps,
   SystemTypes,
   WoodScrewsProps,
+  WorkshopRentProps,
 } from '@/utils/types';
 
 export type FormValuesContextProps = {
   SystemType: `${SystemTypes}`;
+  MontageType: `${MontageTypes}`;
   Inverter: InverterType | undefined;
   Panel: PanelType;
   NumberOfPanels: number;
@@ -44,6 +54,15 @@ export type FormValuesContextProps = {
   ProsumerDoc: boolean;
   Car: CarProps;
   Gas: GasProps;
+  Rent: RentProps;
+  WorkshopRent: WorkshopRentProps;
+  Profit: number;
+  IntermediateClamps: IntermediateClampsProps;
+  CornerClamps: CornerClampsProps;
+  MixClamps: MixClampsProps;
+  ACFuse: ACFuseProps;
+  MiniRail: MiniRailProps;
+  Prezoane: PrezoaneProps;
 };
 
 type FormValuesContextProviderProps = {
@@ -67,6 +86,7 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
   const formMethods = useForm<FormValuesContextProps>({
     defaultValues: {
       SystemType: SystemTypes.Mono,
+      MontageType: MontageTypes.AcoperisTigla,
       ACCableType: {
         Length: 0,
         Total: 0,
@@ -108,8 +128,8 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
         Total: 0,
       },
       Surges: {
-        Quantity: 0,
-        Total: 0,
+        Quantity: 2,
+        Total: 200,
       },
       CableDuct: {
         Quantity: 4,
@@ -117,13 +137,48 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
       },
       ProsumerDoc: true,
       Car: {
-        Total: 1,
+        Quantity: 1,
+        Total: 250,
         PricePerPiece: 250,
       },
       Gas: {
         Liters: 0,
         Total: 0,
         PricePerLiter: 7.5,
+      },
+      Rent: {
+        Days: 0,
+        PricePerRoom: 0,
+        Rooms: 0,
+      },
+      WorkshopRent: {
+        Total: 82.5,
+        PricePerDay: 82.5,
+      },
+      Profit: 0,
+      IntermediateClamps: {
+        Quantity: 0,
+        Total: 0,
+      },
+      CornerClamps: {
+        Quantity: 0,
+        Total: 0,
+      },
+      MixClamps: {
+        Quantity: 0,
+        Total: 0,
+      },
+      ACFuse: {
+        Power: 0,
+        Price: 0,
+      },
+      MiniRail: {
+        Quantity: 0,
+        Total: 0,
+      },
+      Prezoane: {
+        Quantity: 0,
+        Total: 0,
       },
     },
   });

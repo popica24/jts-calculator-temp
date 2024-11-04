@@ -16,50 +16,7 @@ const CarRow = () => {
           <Table.Th>Pret Total</Table.Th>
         </Table.Tr>
       </Table.Thead>
-      <Table.Tbody>
-        <Controller
-          name="Gas"
-          control={control}
-          render={({ field }) => (
-            <Table.Tr fz={18} style={{ cursor: 'pointer' }}>
-              <p
-                style={{
-                  minWidth: '15ch',
-                }}
-              >
-                Masina
-              </p>
-              <Table.Td>
-                <Slider
-                  labelAlwaysOn
-                  defaultValue={1}
-                  min={0}
-                  step={1}
-                  max={1000}
-                  color="blue"
-                  onChange={(e) =>
-                    field.onChange({
-                      ...Gas,
-                      Liters: e,
-                      Total: (e * 7.5).toFixed(2),
-                    })
-                  }
-                />
-              </Table.Td>
-              <Table.Td>
-                <p
-                  style={{
-                    minWidth: '100px',
-                    margin: 'auto auto',
-                  }}
-                >
-                  RON {getValues('Gas.Total')}
-                </p>
-              </Table.Td>
-            </Table.Tr>
-          )}
-        />
-      </Table.Tbody>
+      <Table.Tbody></Table.Tbody>
     </Table>
   );
 };

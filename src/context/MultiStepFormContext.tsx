@@ -1,6 +1,16 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { IconArrowBarToUp } from '@tabler/icons-react';
-import { AppShell, Button, Container, Drawer, Flex, Image, Stack, Stepper } from '@mantine/core';
+import {
+  AppShell,
+  Box,
+  Button,
+  Container,
+  Drawer,
+  Flex,
+  Image,
+  Stack,
+  Stepper,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import SystemSummary from '@/components/SystemSummary';
 import { useFormValues } from './FormValuesContext';
@@ -29,6 +39,8 @@ export const useFormStep = () => {
 export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextProviderProps) => {
   const [opened, { open, close }] = useDisclosure(false);
 
+  const [navbarOpened, { open: openNavbar, close: closeNavbar }] = useDisclosure(false);
+
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
@@ -43,19 +55,23 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
     <MultiStepFormContext.Provider value={{ currentStep, nextStep, prevStep }}>
       <Container p={8}>
         <AppShell>
-          <AppShell.Navbar p="md" maw={'300px'}>
+          <Drawer p="md" maw={'200px'} opened={navbarOpened} onClose={closeNavbar} offset={0}>
             <Stack justify="space-between" align="center" h={'100vh'} py={15} px={4}>
               <Stepper active={currentStep} orientation="vertical">
                 <Stepper.Step
-                  label="Choose system type"
+                  label="Alege tipul sistemului"
                   description="Choose the type of the system"
                 />
                 <Stepper.Step
-                  label="Choose the inverter"
+                  label="Acum alege invertorul"
                   description="Select the inverter based on the system you chose previously"
                 />
                 <Stepper.Step
-                  label="Choose the panels"
+                  label="Alege panourile"
+                  description="Select the panels type and the number of panels"
+                />
+                <Stepper.Step
+                  label="Alege tipul montajului"
                   description="Select the panels type and the number of panels"
                 />
                 <Stepper.Step
@@ -68,16 +84,25 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
                 />
               </Stepper>
               <Image
-                w={'200px'}
+                w={'100px'}
                 src={
                   'https://www.jtssolar.ro/wp-content/uploads/2022/03/JTS-Install-Construct-logo-200px.png'
                 }
               />
             </Stack>
-          </AppShell.Navbar>
-          <Container>
-            {React.Children.map(children, (child, index) => (index === currentStep ? child : null))}
-          </Container>
+          </Drawer>
+          <Button pos={'fixed'} left={'40px'} top={'20px'} onClick={openNavbar}>
+            Pasi
+          </Button>
+          <AppShell.Main>
+            <Box>
+              <div>
+                {React.Children.map(children, (child, index) =>
+                  index === currentStep ? child : null
+                )}
+              </div>
+            </Box>
+          </AppShell.Main>
           <AppShell.Footer>
             <Button fullWidth onClick={open} h={'100%'} py={10}>
               <Flex justify={'center'} align={'center'} direction={'column'}>

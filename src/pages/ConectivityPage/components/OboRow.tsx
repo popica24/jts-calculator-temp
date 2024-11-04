@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Slider, Table } from '@mantine/core';
+import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const OboRow = () => {
@@ -20,6 +20,7 @@ const OboRow = () => {
           >
             Obo
           </p>
+          <Text fz={'xs'}>Valoare implicita : 25buc</Text>
           <Table.Td>
             <Slider
               labelAlwaysOn

@@ -4,17 +4,17 @@ import Swal from 'sweetalert2';
 import { Button, Stack } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 import { useFormStep } from '@/context/MultiStepFormContext';
-import SystemSelector from './SystemSelector';
+import MontageSelector from './MontageSelector/MontageSelector';
 
-const SystemTypePage = () => {
+const MontageTypePage = () => {
   const { control, getValues } = useFormValues();
   const { nextStep } = useFormStep();
 
   const handleNextStep = () => {
-    const system = getValues('SystemType');
+    const montage = getValues('MontageType');
     Swal.fire({
       title: 'Esti sigur ?',
-      text: `Vei continua cu sistemul de tip ${system}`,
+      text: `Vei continua cu montajul de tip ${montage}`,
       imageUrl:
         'https://www.jtssolar.ro/wp-content/uploads/2022/03/JTS-Install-Construct-logo-200px.png',
       imageWidth: 200,
@@ -26,15 +26,14 @@ const SystemTypePage = () => {
       }
     });
   };
-
   return (
     <>
       <div data-aos="fade-up">
         <Stack align="center" justify="center" p={15}>
           <Controller
-            name="SystemType"
+            name="MontageType"
             control={control}
-            render={({ field }) => <SystemSelector field={field} />}
+            render={({ field }) => <MontageSelector field={field} />}
           />
           <Button
             mt={12}
@@ -42,7 +41,7 @@ const SystemTypePage = () => {
             gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
             onClick={handleNextStep}
           >
-            Pasul urmator (invertor)
+            Pasul urmator (Conectica)
           </Button>
         </Stack>
       </div>
@@ -52,4 +51,4 @@ const SystemTypePage = () => {
   );
 };
 
-export default SystemTypePage;
+export default MontageTypePage;

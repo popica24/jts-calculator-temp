@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Slider, Table } from '@mantine/core';
+import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const GroundingCableRow = () => {
@@ -20,6 +20,7 @@ const GroundingCableRow = () => {
           >
             Cablu Impamantare 6mm
           </p>
+          <Text fz={'xs'}>Valoare implicita : 30m</Text>
           <Table.Td>
             <Slider
               labelAlwaysOn

@@ -6,6 +6,14 @@ export enum SystemTypes {
     OffGrid = "Off-grid"
 }
 
+export enum MontageTypes {
+    Sandwich = "Acoperist tip sandwich",
+    AcoperisTabla = "Acoperis tip tabla",
+    AcoperisTigla = "Acoperis tip tigla",
+    AcoperisDrept = "Acoperist drept",
+    Sol = "Sol"
+}
+
 export type InverterType = {
     Brand: string,
     kW: number,
@@ -108,7 +116,7 @@ export type AluminiumProfileProps = {
 
 export type FusibleFuseProps = {
     Quantity: number;
-    PricePerPiece : 65;
+    PricePerPiece : 50;
     Total: number
 }
 
@@ -125,6 +133,7 @@ export type CableDuctProps = {
 }
 
 export type CarProps = {
+    Quantity: number,
     Total: number;
     PricePerPiece: 250
 }
@@ -133,4 +142,45 @@ export type GasProps = {
     Liters: number;
     Total: number,
     PricePerLiter: 7.5,
+}
+
+export type RentProps = {
+    Days: number,
+    Rooms: number,
+    PricePerRoom:number
+}
+export type WorkshopRentProps = {
+    Total:number,
+    PricePerDay: number,
+}
+
+export type IntermediateClampsProps = {
+    Quantity: number,
+    PricePerPiece: 5,
+    Total: number
+}
+export type CornerClampsProps = {
+    Quantity: number,
+    PricePerPiece: 5,
+    Total: number
+}
+export type MixClampsProps = {
+    Quantity: number,
+    PricePerPiece: 5,
+    Total: number
+}
+export type ACFuseProps = {
+    Power: number,
+    Price: number
+}
+
+export type MiniRailProps = {
+    Quantity: number,
+    PricePerPiece: 12.85,
+    Total: number
+}
+export type PrezoaneProps = {
+    Quantity: number,
+    PricePerPiece: 12.5,
+    Total: number
 }

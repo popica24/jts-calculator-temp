@@ -1,9 +1,9 @@
 import { Controller } from 'react-hook-form';
-import { Slider, Table } from '@mantine/core';
+import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const CableDuct = () => {
-  const { getValues, setValue, control } = useFormValues();
+  const { getValues, control } = useFormValues();
 
   const cableDuct = getValues('CableDuct');
 
@@ -20,6 +20,7 @@ const CableDuct = () => {
           >
             Canal de cablu
           </p>
+          <Text fz={'xs'}>Valoare implicita : 4m</Text>
           <Table.Td>
             <Slider
               labelAlwaysOn
@@ -31,14 +32,14 @@ const CableDuct = () => {
               onChange={(e) =>
                 field.onChange({
                   ...cableDuct,
-                  Length: e,
+                  Quantity: e,
                   Total: (e * 20).toFixed(2),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {getValues('CableDuct')?.Total}</Table.Td>
+          <Table.Td>RON {getValues('CableDuct').Total}</Table.Td>
         </Table.Tr>
       )}
     />

@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Slider, Table } from '@mantine/core';
+import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const CopexRow = () => {
@@ -10,7 +10,7 @@ const CopexRow = () => {
   return (
     <Controller
       name="CopexCable"
-      control={control}   
+      control={control}
       render={({ field }) => (
         <Table.Tr fz={18} style={{ cursor: 'pointer' }}>
           <p
@@ -20,6 +20,7 @@ const CopexRow = () => {
           >
             Copex
           </p>
+          <Text fz={'xs'}>Valoare implicita : 30m</Text>
           <Table.Td>
             <Slider
               labelAlwaysOn

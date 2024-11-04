@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { Slider, Table } from '@mantine/core';
+import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const ScrewsRow = () => {
@@ -20,6 +20,7 @@ const ScrewsRow = () => {
           >
             Suruburi
           </p>
+          <Text fz={'xs'}>Valoare implicita : 50buc</Text>
           <Table.Td>
             <Slider
               labelAlwaysOn

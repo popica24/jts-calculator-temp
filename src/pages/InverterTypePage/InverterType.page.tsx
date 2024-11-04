@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Controller, ControllerRenderProps } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Button, Flex, ScrollArea, Table, Title } from '@mantine/core';
@@ -7,6 +8,8 @@ import { Inverters } from '@/utils/database';
 import { InverterType } from '@/utils/types';
 
 const InverterTypePage = () => {
+  const [selected, setSelected] = useState(false);
+
   const { getValues, control } = useFormValues();
   const { nextStep } = useFormStep();
 
@@ -18,6 +21,7 @@ const InverterTypePage = () => {
     row: InverterType,
     field: ControllerRenderProps<FormValuesContextProps, 'Inverter'>
   ) => {
+    setSelected(true);
     Swal.fire(`Ai selectat ${row.Brand} ${row.kW}kW ${row.Type} - RON ${row.Price}`);
     field.onChange(row);
   };
@@ -52,9 +56,9 @@ const InverterTypePage = () => {
               <Table.Thead>
                 <Table.Tr>
                   <Table.Th>Brand</Table.Th>
-                  <Table.Th>Type</Table.Th>
+                  <Table.Th>Tip</Table.Th>
                   <Table.Th>kW</Table.Th>
-                  <Table.Th>Price</Table.Th>
+                  <Table.Th>Pret</Table.Th>
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
@@ -84,14 +88,14 @@ const InverterTypePage = () => {
           </ScrollArea>
         )}
       />
-      {getValues('Inverter') ? (
+      {selected ? (
         <Button
           mt={12}
           variant="gradient"
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           onClick={handleNextStep}
         >
-          Next step (Panels)
+          Pasul urmator (Panouri)
         </Button>
       ) : (
         <></>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
@@ -7,11 +8,15 @@ const SurgesRow = () => {
 
   const Surges = getValues('Surges');
 
-  const fusileFuses = getValues('FusileFuse.Quantity');
+  useEffect(() => {
+    const fusileFuses = getValues('FusileFuse.Quantity');
 
-  Surges.Quantity = fusileFuses;
+    Surges.Quantity = fusileFuses;
 
-  setValue('Surges', Surges);
+    Surges.Total = fusileFuses * 100;
+
+    setValue('Surges', Surges);
+  }, []);
 
   return (
     <Controller

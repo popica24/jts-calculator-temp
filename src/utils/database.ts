@@ -300,6 +300,7 @@ export const ChirieHala = {
     price: 82.5
 }
 
+
 export const Inverters: InverterType[] = [
     { Brand: "Solax", kW: 3, Type: SystemTypes.Mono, Price: 1925 },
     { Brand: "Solax", kW: 4, Type: SystemTypes.Mono, Price: 2257.2 },
@@ -356,3 +357,22 @@ export const Inverters: InverterType[] = [
     { Brand: "Soplanet", kW: 10, Type: SystemTypes.TrifazatHybrid, Price: 6045 },
     { Brand: "Soplanet", kW: 12, Type: SystemTypes.TrifazatHybrid, Price: 6545 }
 ];
+
+export const SiguranteAC = [
+    { Power: 16, Inverter: 3, InverterType: SystemTypes.Mono, Price: 29.5 },
+    { Power: 20, Inverter: 4, InverterType: SystemTypes.Mono, Price: 26.71 },
+    { Power: 25, Inverter: 5, InverterType: SystemTypes.Mono, Price: 26.71 },
+    { Power: 32, Inverter: 6, InverterType: SystemTypes.Mono, Price: 26.71 },
+    { Power: 40, Inverter: 8, InverterType: SystemTypes.Mono, Price: 26.71 },
+    { Power: 10, Inverter: 3, InverterType: SystemTypes.Trifazat, Price: 71.79 },
+    { Power: 10, Inverter: 4, InverterType: SystemTypes.Trifazat, Price: 71.79 },
+    { Power: 10, Inverter: 5, InverterType: SystemTypes.Trifazat, Price: 71.79 },
+    { Power: 16, Inverter: 6, InverterType: SystemTypes.Trifazat, Price: 63.00 },
+    { Power: 16, Inverter: 8, InverterType: SystemTypes.Trifazat, Price: 63.00 },
+    { Power: 20, Inverter: 10, InverterType: SystemTypes.Trifazat, Price: 68.00 },
+    { Power: 25, Inverter: 12, InverterType: SystemTypes.Trifazat, Price: 77.22 },
+    { Power: 32, Inverter: 15, InverterType: SystemTypes.Trifazat, Price: 81.06 },
+    { Power: 40, Inverter: 20, InverterType: SystemTypes.Trifazat, Price: 84.03 },
+    { Power: 50, Inverter: 25, InverterType: SystemTypes.Trifazat, Price: 151.00 },
+    { Power: 63, Inverter: 30, InverterType: SystemTypes.Trifazat, Price: 166.00 },
+]

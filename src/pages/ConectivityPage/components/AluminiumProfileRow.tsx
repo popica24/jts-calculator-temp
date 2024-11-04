@@ -1,28 +1,33 @@
 import { useEffect } from 'react';
-import { Controller } from 'react-hook-form';
-import { Slider, Table, TextInput } from '@mantine/core';
+import { Controller, useWatch } from 'react-hook-form';
+import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const AluminiumProfileRow = () => {
-  const { getValues, setValue, control, watch } = useFormValues();
+  const { getValues, setValue, control } = useFormValues();
 
-  const aluminiumProfileValue = getValues('AluminiumProfile');
-
-  const calculatePrice = () => {
-    const aluminiumProfile = getValues('AluminiumProfile');
-
-    const numberOfPanels = getValues('NumberOfPanels');
-
-    const total = Math.ceil((numberOfPanels * 1.13 * 2) / 3.54);
-
-    setValue('AluminiumProfile', {
-      ...aluminiumProfile,
-      Quantity: total,
-      Total: total * 65,
-    });
+  // Watch NumberOfPanels and AluminiumProfile to trigger recalculations
+  const numberOfPanels = useWatch({ control, name: 'NumberOfPanels' });
+  const aluminiumProfile = useWatch({ control, name: 'AluminiumProfile' }) || {
+    Quantity: 0,
+    Total: 0,
   };
 
-  calculatePrice();
+  useEffect(() => {
+    const calculatePrice = () => {
+      const total = Math.ceil((numberOfPanels * 1.13 * 2) / 3.54);
+
+      setValue('AluminiumProfile', {
+        ...aluminiumProfile,
+        Quantity: total,
+        Total: total * 65,
+      });
+    };
+
+    if (numberOfPanels) {
+      calculatePrice();
+    }
+  }, [numberOfPanels, setValue]);
 
   return (
     <Controller
@@ -40,14 +45,14 @@ const AluminiumProfileRow = () => {
           <Table.Td>
             <Slider
               labelAlwaysOn
-              defaultValue={getValues('AluminiumProfile.Quantity')}
+              value={aluminiumProfile.Quantity} // Updated dynamically with useWatch
               min={0}
               step={1}
               max={100}
               color="blue"
               onChange={(e) =>
                 field.onChange({
-                  ...aluminiumProfileValue,
+                  ...aluminiumProfile,
                   Quantity: e,
                   Total: (e * 65).toFixed(2),
                 })
@@ -55,7 +60,7 @@ const AluminiumProfileRow = () => {
             />
           </Table.Td>
 
-          <Table.Td>RON {getValues('AluminiumProfile').Total}</Table.Td>
+          <Table.Td>RON {aluminiumProfile?.Total}</Table.Td>
         </Table.Tr>
       )}
     />

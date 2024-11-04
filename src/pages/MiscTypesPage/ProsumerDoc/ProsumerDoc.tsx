@@ -1,5 +1,5 @@
 import { useWatch } from 'react-hook-form';
-import { Checkbox, Group, Text } from '@mantine/core';
+import { Checkbox, Group, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const ProsumerDoc = () => {
@@ -12,14 +12,14 @@ const ProsumerDoc = () => {
   });
   return (
     <>
-      <Text>Dosar Prosumator</Text>
-      <Group justify="center" p="md">
+      <Table.Td>Dosar Prosumator</Table.Td>
+      <Table.Td>
         <Checkbox
           defaultChecked
           onChange={(e) => setValue('ProsumerDoc', e.currentTarget.checked)}
         />
-      </Group>
-      <span>{pros ? 'RON 500.00' : 'RON 0'}</span>
+      </Table.Td>
+      <Table.Td>{pros ? 'RON 500.00' : 'RON 0'}</Table.Td>
     </>
   );
 };

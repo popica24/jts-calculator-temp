@@ -32,7 +32,7 @@ const PanelsTypePage = () => {
     if (!panels) return;
     Swal.fire({
       title: 'Esti sigur ?',
-      text: `Vei continua cu Panourile ${getValues('NumberOfPanels')} x ${panels.Name} ${panels.KG}KG ${panels.W}W - RON ${panels.Price}`,
+      text: `Vei continua cu Panourile ${getValues('NumberOfPanels')} x ${panels.Name} ${panels.W}W - RON ${panels.Price}`,
       imageUrl:
         'https://www.jtssolar.ro/wp-content/uploads/2022/03/JTS-Install-Construct-logo-200px.png',
       imageWidth: 200,
@@ -56,10 +56,9 @@ const PanelsTypePage = () => {
             <Table w={'100%'} highlightOnHover striped>
               <Table.Thead>
                 <Table.Tr>
-                  <Table.Th>Name</Table.Th>
-                  <Table.Th>KG</Table.Th>
+                  <Table.Th>Nume</Table.Th>
                   <Table.Th>W</Table.Th>
-                  <Table.Th>Price</Table.Th>
+                  <Table.Th>Pret</Table.Th>
                 </Table.Tr>
               </Table.Thead>
               <Table.Tbody>
@@ -73,7 +72,6 @@ const PanelsTypePage = () => {
                     }}
                   >
                     <Table.Td>{row.Name}</Table.Td>
-                    <Table.Td>{row.KG}</Table.Td>
                     <Table.Td>{row.W} kW</Table.Td>
                     <Table.Td>RON {row.Price}</Table.Td>
                   </Table.Tr>
@@ -90,7 +88,7 @@ const PanelsTypePage = () => {
           gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
           onClick={handleNextStep}
         >
-          Next step (Conectivity)
+          Pasul urmator (tip montaj)
         </Button>
       ) : (
         <></>

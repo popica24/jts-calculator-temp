@@ -1,4 +1,3 @@
-import { IconTrash } from '@tabler/icons-react';
 import { Controller } from 'react-hook-form';
 import { ScrollArea, Select, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
@@ -19,7 +18,6 @@ const TablesSelector = () => {
               <Table.Th>Cantitate</Table.Th>
               <Table.Th>Pozitii</Table.Th>
               <Table.Th>Pret Total</Table.Th>
-              <Table.Th>Actiune</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -48,9 +46,6 @@ const TablesSelector = () => {
                     />
                   </Table.Td>
                   <Table.Td>RON {getValues('StringTable')?.Price?.toFixed(2) || '0.00'}</Table.Td>
-                  <Table.Td>
-                    <IconTrash stroke={2} />
-                  </Table.Td>
                 </Table.Tr>
               )}
             />
@@ -76,9 +71,6 @@ const TablesSelector = () => {
                   </Table.Td>
                   <Table.Td>
                     RON {getValues('SmartMeterTable')?.Price?.toFixed(2) || '0.00'}
-                  </Table.Td>
-                  <Table.Td>
-                    <IconTrash stroke={2} />
                   </Table.Td>
                 </Table.Tr>
               )}
