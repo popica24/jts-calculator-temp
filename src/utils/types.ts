@@ -184,3 +184,8 @@ export type PrezoaneProps = {
     PricePerPiece: 12.5,
     Total: number
 }
+
+export type BatteryProps = {
+    model: string,
+    price:number
+}

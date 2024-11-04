@@ -14,6 +14,13 @@ const SystemSummary = () => {
       color: 'blue',
     },
     {
+      name: getValues('Battery')?.model || 'Fara baterie',
+      type: 'Baterie',
+      quantity: '1',
+      total: getValues('Battery')?.price || 0,
+      color: 'green',
+    },
+    {
       name: `${getValues('Inverter.Brand')} ${getValues('Inverter.kW')}kW ${getValues('Inverter.Type')}`,
       type: 'Invertor',
       quantity: '1',

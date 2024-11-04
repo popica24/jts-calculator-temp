@@ -376,3 +376,38 @@ export const SiguranteAC = [
     { Power: 50, Inverter: 25, InverterType: SystemTypes.Trifazat, Price: 151.00 },
     { Power: 63, Inverter: 30, InverterType: SystemTypes.Trifazat, Price: 166.00 },
 ]
+
+export const batteries = [
+    {
+      model: "V-Tac 9,6 kWh",
+      price: 6835.00,
+    },
+    {
+      model: "V-Tac 5,2 kWh Rack Mount",
+      price: 4225.00,
+    },
+    {
+      model: "V-Tac 5,2 kWh Wall Mount",
+      price: 4485.00,
+    },
+    {
+      model: "Pytes 5,12 kWh",
+      price: 4600.00,
+    },
+    {
+      model: "Deye 6.2 kWh",
+      price: 7000.00,
+    },
+    {
+      model: "Dahai 5,1 kWh",
+      price: 2300.00,
+    },
+    {
+      model: "Sunplus 10,37",
+      price: 6385.00,
+    },
+    {
+      model: "Felicity Solar 15 kWh",
+      price: 9972.00,
+    },
+  ];

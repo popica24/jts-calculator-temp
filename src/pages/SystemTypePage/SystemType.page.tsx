@@ -1,14 +1,30 @@
+import { useEffect, useState } from 'react';
 import { DevTool } from '@hookform/devtools';
-import { Controller } from 'react-hook-form';
+import { Controller, useWatch } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Button, Stack } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 import { useFormStep } from '@/context/MultiStepFormContext';
+import { SystemTypes } from '@/utils/types';
+import BatteryType from './BatteryType/BatteryType';
 import SystemSelector from './SystemSelector';
 
 const SystemTypePage = () => {
-  const { control, getValues } = useFormValues();
+  const { control, getValues, setValue } = useFormValues();
   const { nextStep } = useFormStep();
+
+  const system = useWatch({ control, name: 'SystemType' });
+
+  const [showBattery, setShowBattery] = useState(false);
+
+  useEffect(() => {
+    if (system == SystemTypes.MonoHybrid || system == SystemTypes.TrifazatHybrid) {
+      setShowBattery(true);
+    } else {
+      setShowBattery(false);
+      setValue('Battery', null);
+    }
+  }, [system]);
 
   const handleNextStep = () => {
     const system = getValues('SystemType');
@@ -36,6 +52,7 @@ const SystemTypePage = () => {
             control={control}
             render={({ field }) => <SystemSelector field={field} />}
           />
+          {showBattery && <BatteryType />}
           <Button
             mt={12}
             variant="gradient"

@@ -4,6 +4,7 @@ import {
   ACCableProps,
   ACFuseProps,
   AluminiumProfileProps,
+  BatteryProps,
   CableDuctProps,
   CarProps,
   CopexCableProps,
@@ -63,6 +64,7 @@ export type FormValuesContextProps = {
   ACFuse: ACFuseProps;
   MiniRail: MiniRailProps;
   Prezoane: PrezoaneProps;
+  Battery: BatteryProps | null;
 };
 
 type FormValuesContextProviderProps = {
