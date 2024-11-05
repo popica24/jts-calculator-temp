@@ -1,5 +1,6 @@
 import { ScrollArea, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { MontageTypes } from '@/utils/types';
 import ACFuse from './ACFuse';
 import AluminiumProfileRow from './AluminiumProfileRow';
 import CableDuct from './CableDuct';
@@ -40,16 +41,19 @@ const FixingTypes = () => {
             <OboRow />
             <ScrewsRow />
             <Mc4Row />
-            {montageType != 'Acoperist tip sandwich' && <AluminiumProfileRow />}
+            {montageType.Type != MontageTypes.Sandwich && <AluminiumProfileRow />}
             <FusileFuseRow />
             <ACFuse />
             <SurgesRow />
             <CableDuct />
             <IntermediateClamps />
             <CornerClamps />
-            {montageType != 'Acoperist tip sandwich' && <MixClamps />}
-            <MiniRailsTypes />
-            {montageType != 'Acoperist tip sandwich' && <PrezoaneRow />}
+            {montageType.Type != 'Acoperis tip sandwich' && <MixClamps />}
+
+            {montageType.Type == 'Acoperis tip sandwich' && <MiniRailsTypes />}
+
+            {(montageType.Type == 'Acoperis tip tigla' ||
+              montageType.Type == 'Acoperis tip tabla') && <PrezoaneRow />}
           </Table.Tbody>
         </Table>
       </ScrollArea>

@@ -44,7 +44,7 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 4)); // Assuming 5 steps (0-4)
+    setCurrentStep((prev) => Math.min(prev + 1, 7)); // Assuming 5 steps (0-4)
   };
 
   const prevStep = () => {

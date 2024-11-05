@@ -7,10 +7,10 @@ export enum SystemTypes {
 }
 
 export enum MontageTypes {
-    Sandwich = "Acoperist tip sandwich",
+    Sandwich = "Acoperis tip sandwich",
     AcoperisTabla = "Acoperis tip tabla",
     AcoperisTigla = "Acoperis tip tigla",
-    AcoperisDrept = "Acoperist drept",
+    AcoperisDrept = "Acoperis drept",
     Sol = "Sol"
 }
 
@@ -188,4 +188,9 @@ export type PrezoaneProps = {
 export type BatteryProps = {
     model: string,
     price:number
+}
+
+export type MontageProps = {
+    Type: `${MontageTypes}`,
+    Total: number
 }

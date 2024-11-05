@@ -17,6 +17,7 @@ import {
   MC4Props,
   MiniRailProps,
   MixClampsProps,
+  MontageProps,
   MontageTypes,
   OboProps,
   PanelType,
@@ -34,7 +35,7 @@ import {
 
 export type FormValuesContextProps = {
   SystemType: `${SystemTypes}`;
-  MontageType: `${MontageTypes}`;
+  MontageType: MontageProps;
   Inverter: InverterType | undefined;
   Panel: PanelType;
   NumberOfPanels: number;
@@ -88,7 +89,10 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
   const formMethods = useForm<FormValuesContextProps>({
     defaultValues: {
       SystemType: SystemTypes.Mono,
-      MontageType: MontageTypes.AcoperisTigla,
+      MontageType: {
+        Type: MontageTypes.AcoperisTigla,
+        Total: 0,
+      },
       ACCableType: {
         Length: 0,
         Total: 0,

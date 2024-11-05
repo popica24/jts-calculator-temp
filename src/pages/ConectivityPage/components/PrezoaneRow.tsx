@@ -35,7 +35,7 @@ const PrezoaneRow = () => {
       render={({ field }) => (
         <Table.Tr fz={18} style={{ cursor: 'pointer' }}>
           <p style={{ minWidth: '15ch' }}>
-            {montageType === MontageTypes.AcoperisTigla ? 'Carlige Tigla' : 'Prezoane'}
+            {montageType.Type === MontageTypes.AcoperisTigla ? 'Carlige Tigla' : 'Prezoane'}
           </p>
           <Table.Td>
             <Slider

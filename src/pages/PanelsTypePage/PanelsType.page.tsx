@@ -72,7 +72,7 @@ const PanelsTypePage = () => {
                     }}
                   >
                     <Table.Td>{row.Name}</Table.Td>
-                    <Table.Td>{row.W} kW</Table.Td>
+                    <Table.Td>{row.W} W</Table.Td>
                     <Table.Td>RON {row.Price}</Table.Td>
                   </Table.Tr>
                 ))}

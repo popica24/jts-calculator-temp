@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 
+import { useEffect } from 'react';
 import { MantineProvider } from '@mantine/core';
 import { FormValuesContextProvider } from './context/FormValuesContext';
 import { MultiStepFormContextProvider } from './context/MultiStepFormContext';
@@ -14,6 +15,16 @@ import SystemTypePage from './pages/SystemTypePage/SystemType.page';
 import { theme } from './theme';
 
 export default function App() {
+  useEffect(() => {
+    const unloadCallback = (event: any) => {
+      event.preventDefault();
+      event.returnValue = '';
+      return '';
+    };
+
+    window.addEventListener('beforeunload', unloadCallback);
+    return () => window.removeEventListener('beforeunload', unloadCallback);
+  }, []);
   return (
     <MantineProvider theme={theme}>
       <FormValuesContextProvider>

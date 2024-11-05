@@ -35,10 +35,10 @@ const SystemSummary = () => {
       color: 'green',
     },
     {
-      name: `${getValues('MontageType')}`,
+      name: `${getValues('MontageType.Type')}`,
       type: 'Montaj',
       quantity: '-',
-      total: '-',
+      total: `RON ${getValues('MontageType.Total')}`,
       color: 'red',
     },
     {

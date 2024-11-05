@@ -1,10 +1,13 @@
 import { SegmentedControl, Stack, Title } from '@mantine/core';
-import { MontageTypes, SystemTypes } from '@/utils/types';
+import { useFormValues } from '@/context/FormValuesContext';
+import { MontageTypes } from '@/utils/types';
 
 type Props = {
   field: any;
 };
 function MontageSelector({ field }: Props) {
+  const { getValues } = useFormValues();
+  const montage = getValues('MontageType');
   return (
     <>
       <Stack align="center">
@@ -14,13 +17,18 @@ function MontageSelector({ field }: Props) {
           size="md"
           defaultValue={MontageTypes.AcoperisTigla}
           data={[
-            MontageTypes.AcoperisTigla,
-            MontageTypes.AcoperisDrept,
             MontageTypes.AcoperisTabla,
+            MontageTypes.AcoperisTigla,
             MontageTypes.Sandwich,
+            MontageTypes.AcoperisDrept,
             MontageTypes.Sol,
           ]}
-          onChange={field.onChange}
+          onChange={(e) =>
+            field.onChange({
+              ...montage,
+              Type: e,
+            })
+          }
         />
       </Stack>
     </>

@@ -4,13 +4,22 @@ import { Controller, useWatch } from 'react-hook-form';
 import { Select, Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 import { SiguranteAC } from '@/utils/database';
+import { SystemTypes } from '@/utils/types';
 
 const MixClamps = () => {
   const { getValues, setValue, control } = useFormValues();
 
   const inverter = getValues('Inverter');
 
-  const systemType = getValues('SystemType');
+  let systemType = getValues('SystemType');
+
+  if (systemType == SystemTypes.MonoHybrid) {
+    systemType = SystemTypes.Mono;
+  }
+
+  if (systemType == SystemTypes.TrifazatHybrid) {
+    systemType = SystemTypes.Trifazat;
+  }
 
   const acFuse = SiguranteAC.find(
     (s) => s.Inverter == inverter?.kW && s.InverterType == systemType
