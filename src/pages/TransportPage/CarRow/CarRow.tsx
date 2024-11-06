@@ -40,7 +40,7 @@ const CarRow = () => {
                     minWidth: '15ch',
                   }}
                 >
-                  Masina
+                  Masini
                 </p>
                 <Table.Td>
                   <Slider
@@ -68,48 +68,6 @@ const CarRow = () => {
                   >
                     {' '}
                     RON {getValues('Car').Total}
-                  </p>
-                </Table.Td>
-              </Table.Tr>
-            )}
-          />
-          <Controller
-            name="Gas"
-            control={control}
-            render={({ field }) => (
-              <Table.Tr fz={18} style={{ cursor: 'pointer' }}>
-                <p
-                  style={{
-                    minWidth: '15ch',
-                  }}
-                >
-                  Motorina
-                </p>
-                <Table.Td>
-                  <Slider
-                    labelAlwaysOn
-                    defaultValue={0}
-                    min={0}
-                    step={1}
-                    max={1000}
-                    color="blue"
-                    onChange={(e) =>
-                      field.onChange({
-                        ...Gas,
-                        Liters: e,
-                        Total: (e * 7.5).toFixed(2),
-                      })
-                    }
-                  />
-                </Table.Td>
-                <Table.Td>
-                  <p
-                    style={{
-                      minWidth: '100px',
-                      margin: 'auto auto',
-                    }}
-                  >
-                    RON {getValues('Gas.Total')}
                   </p>
                 </Table.Td>
               </Table.Tr>

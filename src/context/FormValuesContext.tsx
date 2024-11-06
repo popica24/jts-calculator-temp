@@ -66,6 +66,11 @@ export type FormValuesContextProps = {
   MiniRail: MiniRailProps;
   Prezoane: PrezoaneProps;
   Battery: BatteryProps | null;
+  Labor: number;
+  Outsourced: boolean;
+  Comission: number;
+  Costs: number;
+  Price: number;
 };
 
 type FormValuesContextProviderProps = {
@@ -89,6 +94,7 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
   const formMethods = useForm<FormValuesContextProps>({
     defaultValues: {
       SystemType: SystemTypes.Mono,
+      Outsourced: false,
       MontageType: {
         Type: MontageTypes.AcoperisTigla,
         Total: 0,
@@ -143,8 +149,8 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
       },
       ProsumerDoc: true,
       Car: {
-        Quantity: 1,
-        Total: 250,
+        Quantity: 0,
+        Total: 0,
         PricePerPiece: 250,
       },
       Gas: {
@@ -186,6 +192,8 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
         Quantity: 0,
         Total: 0,
       },
+      Comission: 0,
+      Labor: 1900,
     },
   });
 

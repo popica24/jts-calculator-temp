@@ -19,6 +19,7 @@ type MultiStepFormContextProps = {
   currentStep: number;
   nextStep: () => void;
   prevStep: () => void;
+  nextTwoSteps: () => void;
 };
 
 type MultiStepFormContextProviderProps = {
@@ -44,7 +45,11 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 7)); // Assuming 5 steps (0-4)
+    setCurrentStep((prev) => Math.min(prev + 1, 10)); // Assuming 5 steps (0-4)
+  };
+
+  const nextTwoSteps = () => {
+    setCurrentStep((prev) => Math.min(prev + 2, 8));
   };
 
   const prevStep = () => {
@@ -52,7 +57,7 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
   };
 
   return (
-    <MultiStepFormContext.Provider value={{ currentStep, nextStep, prevStep }}>
+    <MultiStepFormContext.Provider value={{ currentStep, nextStep, prevStep, nextTwoSteps }}>
       <Container p={8}>
         <AppShell>
           <Drawer p="md" maw={'200px'} opened={navbarOpened} onClose={closeNavbar} offset={0}>

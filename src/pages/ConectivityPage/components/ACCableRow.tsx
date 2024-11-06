@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
@@ -10,14 +10,17 @@ const ACCableRow = () => {
   const systemType = getValues('SystemType');
   const inverterPower = getValues('Inverter.kW');
 
-  const acCable = ACCables.find(
-    (cable) => cable.SystemType == systemType && cable.InverterPower == inverterPower
+  const [acCable, setAcCable] = useState(
+    ACCables.find((cable) => cable.SystemType == systemType && cable.InverterPower == inverterPower)
   );
 
   useEffect(() => {
     if (acCable) {
-      setValue('ACCableType', acCable);
-      setValue('ACCableType.Total', 0);
+      setValue('ACCableType', {
+        ...acCable,
+        Total: acCable.Price * 20,
+        Length: 20,
+      });
     }
   }, [acCable]);
 

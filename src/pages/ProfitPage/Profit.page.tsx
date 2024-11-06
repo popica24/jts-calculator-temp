@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
-import {
-  Badge,
-  Button,
-  Card,
-  Flex,
-  Group,
-  Image,
-  NumberInput,
-  Select,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Badge, Button, Card, Flex, Group, Image, NumberInput, Text, Title } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const ProfitPage = () => {
-  const { setValue, getValues, control } = useFormValues();
-  const [profitSet, setProfitSet] = useState(false);
+  const { getValues, control } = useFormValues();
 
-  const [totalWithProfit, setTotalWithProfit] = useState(0);
-
-  // Watch the Profit value
-  const profit = useWatch({ control, name: 'Profit' });
+  const [profit, setProfit] = useState(getValues('Price') - getValues('Costs'));
 
   const ConectivityGlobal = {
     Total:
@@ -48,78 +32,77 @@ const ProfitPage = () => {
       getValues('Prezoane.Total'),
   };
 
-  const [inverterTotal, setInverterTotal] = useState(Math.ceil(getValues('Inverter.Price')));
+  const TransportCost =
+    Number(getValues('Car.Total')) +
+    Number(getValues('Gas.Total')) +
+    Number(getValues('Rent.PricePerRoom')) *
+      Number(getValues('Rent.Rooms')) *
+      Number(getValues('Rent.Days'));
 
-  const [panelsTotal, setPanelsTotal] = useState(
+  const comissionCost = getValues('Comission');
+
+  const [comission, setComission] = useState(0);
+
+  const calculateComission = () => {
+    const multiplier = comissionCost / 100;
+
+    const _comission = getValues('Price') * multiplier;
+
+    setComission(_comission);
+  };
+
+  const [inverterCost, setInverterCost] = useState(Math.ceil(getValues('Inverter.Price')));
+
+  const [panelsCost, setPanelsCost] = useState(
     Math.ceil(getValues('NumberOfPanels') * getValues('Panel.Price'))
   );
 
-  const [batteryTotal, setBattetyTotal] = useState(Math.ceil(getValues('Battery.price')));
+  const [batteryCost, setBatteryCost] = useState(Math.ceil(getValues('Battery.price')));
 
-  const [montageTotal, setMontageTotal] = useState(Math.ceil(getValues('MontageType.Total')));
-
-  const [connectivityTotal, setConectitivtyTotal] = useState(Math.ceil(ConectivityGlobal.Total));
-
-  const [comision, setComision] = useState(0);
-
-  const [total, setTotal] = useState(
-    inverterTotal + panelsTotal + batteryTotal + montageTotal + connectivityTotal
+  const [installationCost, setInstallationCost] = useState(
+    Math.ceil(getValues('MontageType.Total'))
   );
 
-  const [initialTotal, setInitialTotal] = useState(total);
+  const [connectivityCost, setConnectivityCost] = useState(Math.ceil(ConectivityGlobal.Total));
 
-  const [initialTotalWithProfit, setInitialTotalWithProfit] = useState(totalWithProfit);
+  const [transportCost, setTransportCost] = useState(Number(TransportCost));
 
-  useEffect(() => {
-    if (initialTotal == 0) {
-      setInitialTotal(total);
-    }
-    if (initialTotalWithProfit == 0) {
-      setInitialTotalWithProfit(totalWithProfit);
-    }
-  }, [total, totalWithProfit]);
+  const [totalCosts, setTotalCosts] = useState(getValues('Costs'));
 
-  useEffect(() => {
-    if (comision > 0) {
-      const cut = (comision / 100) * totalWithProfit; // 0.12
-      setTotalWithProfit(totalWithProfit - cut);
-      setTotal(total + cut);
-    } else {
-      // Dacă comisionul este 0, revenim la valorile inițiale
-      setTotal(initialTotal);
-      setTotalWithProfit(initialTotalWithProfit);
-    }
-  }, [comision, initialTotal, initialTotalWithProfit]);
-
-  // Handler to update InverterGlobal.Total and adjust Profit
   const handleInverterChange = (ammount: number) => {
-    const newTotal = inverterTotal + ammount;
-    setInverterTotal(newTotal);
-    setValue('Profit', profit - ammount);
+    const newTotal = inverterCost + ammount;
+    setInverterCost(newTotal);
+    setProfit((prev) => prev - ammount);
   };
 
   const handlePanelsChange = (ammount: number) => {
-    const newTotal = panelsTotal + ammount;
-    setPanelsTotal(newTotal);
-    setValue('Profit', profit - ammount);
+    const newTotal = panelsCost + ammount;
+    setPanelsCost(newTotal);
+    setProfit((prev) => prev - ammount);
   };
 
   const handleBatteryChange = (ammount: number) => {
-    const newTotal = batteryTotal + ammount;
-    setBattetyTotal(newTotal);
-    setValue('Profit', profit - ammount);
+    const newTotal = batteryCost + ammount;
+    setBatteryCost(newTotal);
+    setProfit((prev) => prev - ammount);
   };
 
   const handleMontageChange = (ammount: number) => {
-    const newTotal = montageTotal + ammount;
-    setMontageTotal(newTotal);
-    setValue('Profit', profit - ammount);
+    const newTotal = installationCost + ammount;
+    setInstallationCost(newTotal);
+    setProfit((prev) => prev - ammount);
   };
 
   const handleConnectivityChange = (ammount: number) => {
-    const newTotal = connectivityTotal + ammount;
-    setConectitivtyTotal(newTotal);
-    setValue('Profit', profit - ammount);
+    const newTotal = connectivityCost + ammount;
+    setConnectivityCost(newTotal);
+    setProfit((prev) => prev - ammount);
+  };
+
+  const handleTransportChange = (ammount: number) => {
+    const newTotal = transportCost + ammount;
+    setTransportCost(newTotal);
+    setProfit((prev) => prev - ammount);
   };
 
   return (
@@ -131,120 +114,70 @@ const ProfitPage = () => {
         <CategoryCard
           changeValue={() => handleInverterChange(100)}
           subtractValue={() => handleInverterChange(-100)}
-          canModify={profitSet}
           img="https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg"
           title="Invertor"
           text={`${getValues('Inverter.Brand')} ${getValues('Inverter.kW')}kW ${getValues('Inverter.Type')}`}
-          total={inverterTotal || 0}
+          total={inverterCost || 0}
         />
-        {batteryTotal > 0 && (
+        {batteryCost > 0 && (
           <CategoryCard
             changeValue={() => handleBatteryChange(100)}
             subtractValue={() => handleBatteryChange(-100)}
-            canModify={profitSet}
             img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
             title="Baterie"
             text={`${getValues('Battery.model')}`}
-            total={batteryTotal || 0}
+            total={batteryCost || 0}
           />
         )}
         <CategoryCard
           changeValue={() => handlePanelsChange(100)}
           subtractValue={() => handlePanelsChange(-100)}
-          canModify={profitSet}
           img="https://tawenergy.ro/wp-content/uploads/2023/09/Fundal-Blog-1200-%C3%97-800-px-7.png"
           title="Panouri"
           text={`${getValues('NumberOfPanels')}x ${getValues('Panel.Name')} ${getValues('Panel.W')}W`}
-          total={panelsTotal || 0}
+          total={panelsCost || 0}
         />
         <CategoryCard
           changeValue={() => handleMontageChange(100)}
           subtractValue={() => handleMontageChange(-100)}
-          canModify={profitSet}
           img="https://nakedsolar.co.uk/wp-content/uploads/bfi_thumb/pitched-roof-mounting-for-solar-pv-panels-qrktt8qwskhb1n6qpbnpfb9e3xv7ep5kdw4tqy1sa8.png"
           title="Montaj Panouri"
           text={`${getValues('MontageType.Type')}`}
-          total={montageTotal || 0}
+          total={installationCost || 0}
         />
         <CategoryCard
           changeValue={() => handleConnectivityChange(100)}
           subtractValue={() => handleConnectivityChange(-100)}
-          canModify={profitSet}
           img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
           title="Conectica"
           text={'Tablou SmartPanel , Tablout Stringuri, Cablu AC, etc...'}
-          total={connectivityTotal || 0}
+          total={connectivityCost || 0}
         />
-        {comision > 0 && (
+        {comissionCost > 0 && (
           <CategoryCard
             changeValue={() => handleConnectivityChange(100)}
             subtractValue={() => handleConnectivityChange(-100)}
-            canModify={profitSet}
             img="https://img.freepik.com/vector-premium/icono-comision-ilustracion-3d-coleccion-marketing-afiliados-icono-3d-comision-creativa-plantillas-diseno-web-infografias-mas_676904-340.jpg"
             title="Comision"
-            text={`${comision}% - RON ${Math.ceil(totalWithProfit * (comision / 100))}`}
+            text={`RON ${comissionCost}`}
             total={-1}
           />
         )}
 
-        {/* <CategoryCard
-          canModify={profitSet}
+        <CategoryCard
+          changeValue={() => handleTransportChange(100)}
+          subtractValue={() => handleTransportChange(-100)}
           img="https://yload.ro/wp-content/uploads/2021/06/transportation-and-logistics-of-container-cargo-ship-and-cargo-plane-1-scaled.jpg"
           title="Transport"
           text={'Masina, Chrie Hala, Motorina, etc...'}
-          total={0}
-        /> */}
+          total={transportCost}
+        />
       </Flex>
       <Title order={3} my={'lg'}>
-        Total costuri lucrare fara TVA : RON {total}
+        Total costuri lucrare fara TVA : RON {totalCosts}
       </Title>
 
-      {!profitSet ? (
-        <>
-          <Title order={3} my={'lg'}>
-            Specifica profitul dorit in lei
-          </Title>
-          <Controller
-            name="Profit"
-            control={control}
-            render={({ field }) => <NumberInput onChange={(e) => field.onChange(Number(e))} />}
-          />
-          <Button
-            onClick={() => {
-              setProfitSet(true);
-              setTotalWithProfit(total + profit);
-            }}
-          >
-            Ok
-          </Button>
-        </>
-      ) : (
-        <>
-          <Text>Profit de distribuit : {profit}</Text>
-          <Title order={3}>Total de incasat : {totalWithProfit}</Title>
-          <Select
-            readOnly={comision != 0}
-            value={`${comision}%`}
-            data={[
-              { label: '3%', value: '3' },
-              { label: '5%', value: '5' },
-              { label: '7%', value: '7' },
-              { label: '12%', value: '12' },
-            ]}
-            onChange={(e) => setComision(Number(e))}
-          />
-          <Button
-            onClick={() => {
-              // Revine la valorile inițiale ale totalului și profitului
-              setTotal(initialTotal);
-              setTotalWithProfit(initialTotalWithProfit);
-              setComision(0); // Resetează comisionul la 0
-            }}
-          >
-            Sterge comisionul de {comision}%
-          </Button>
-        </>
-      )}
+      <Text>Profit de distribuit : {profit}</Text>
     </Flex>
   );
 };
@@ -256,7 +189,6 @@ const CategoryCard = ({
   title,
   text,
   total,
-  canModify,
   changeValue,
   subtractValue,
 }: {
@@ -264,7 +196,6 @@ const CategoryCard = ({
   title: string;
   text: string;
   total: number;
-  canModify: boolean;
   changeValue: (ammount: number) => void;
   subtractValue: (ammount: number) => void;
 }) => {
@@ -285,16 +216,16 @@ const CategoryCard = ({
       {total == -1 ? (
         <></>
       ) : (
-        <Button disabled color="blue" fullWidth mt="md" radius="md">
-          RON {total}
-        </Button>
-      )}
-      {canModify && total != -1 && (
         <>
+          <Button disabled color="blue" fullWidth mt="md" radius="md">
+            RON {total}
+          </Button>
+
           <Button onClick={() => changeValue(100)}>+ 100</Button>
           <Button onClick={() => subtractValue(-100)}>- 100</Button>
         </>
       )}
+      {}
     </Card>
   );
 };

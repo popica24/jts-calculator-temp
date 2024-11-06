@@ -3,7 +3,8 @@ import { DevTool } from '@hookform/devtools';
 import { useForm } from 'react-hook-form';
 import { Button, Flex, ScrollArea, Table, Title } from '@mantine/core';
 import { useFormStep } from '@/context/MultiStepFormContext';
-import ProsumerDoc from '../MiscTypesPage/ProsumerDoc/ProsumerDoc';
+import ProsumerDoc from '../TransportPage/ProsumerDoc/ProsumerDoc';
+import LaborRow from './LaborRow';
 import WorkshopRent from './WorkshopRent';
 
 const AddsTypePage = () => {
@@ -25,7 +26,9 @@ const AddsTypePage = () => {
             <Table.Tr>
               <ProsumerDoc />
             </Table.Tr>
-
+            <Table.Tr>
+              <LaborRow />
+            </Table.Tr>
             <WorkshopRent />
           </Table.Tbody>
         </Table>

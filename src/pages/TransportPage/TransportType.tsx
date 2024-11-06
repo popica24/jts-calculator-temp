@@ -3,6 +3,7 @@ import { Button, Flex } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 import { useFormStep } from '@/context/MultiStepFormContext';
 import CarRow from './CarRow/CarRow';
+import GasRow from './GasRow/GasRow';
 import RentRow from './RentRow/RentRow';
 
 const MiscType = () => {
@@ -13,6 +14,7 @@ const MiscType = () => {
     <>
       <Flex direction="column" align="center" justify="center" miw={'500px'}>
         <CarRow />
+        <GasRow />
         <RentRow />
         <Button onClick={nextStep}>Pasul urmator</Button>
         <div>
