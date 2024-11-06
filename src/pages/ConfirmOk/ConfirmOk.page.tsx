@@ -27,41 +27,42 @@ const ConfirmOkPage = () => {
 
     setTotalCosts(totalCostsWithoutComission + _comission);
   };
-
+  const safeGetValue = (path: any) => {
+    const value = getValues(path);
+    return isNaN(value) ? 0 : value;
+  };
   //total cost without comission
   useEffect(() => {
     const ConectivityGlobal = {
       Total:
-        getValues('StringTable.Price') ||
-        0 + getValues('SmartMeterTable.Price') ||
-        0 + getValues('ACCableType.Total') ||
-        0 + getValues('SolarCable.Total') ||
-        0 + getValues('GroundingCable.Total') ||
-        0 + getValues('CopexCable.Total') ||
-        0 + getValues('WoodScrews.Total') ||
-        0 + getValues('Obo.Total') ||
-        0 + getValues('Screws.Total') ||
-        0 + getValues('MC4.Total') ||
-        0 + getValues('AluminiumProfile.Total') ||
-        0 + getValues('FusileFuse.Total') ||
-        0 + getValues('Surges.Total') ||
-        0 + getValues('CableDuct.Total') ||
-        0 + getValues('IntermediateClamps.Total') ||
-        0 + getValues('CornerClamps.Total') ||
-        0 + getValues('MixClamps.Total') ||
-        0 + getValues('ACFuse.Price') ||
-        0 + getValues('MiniRail.Total') ||
-        0 + getValues('Prezoane.Total') ||
-        0,
+        safeGetValue('StringTable.Price') +
+        safeGetValue('SmartMeterTable.Price') +
+        safeGetValue('ACCableType.Total') +
+        safeGetValue('SolarCable.Total') +
+        safeGetValue('GroundingCable.Total') +
+        safeGetValue('CopexCable.Total') +
+        safeGetValue('WoodScrews.Total') +
+        safeGetValue('Obo.Total') +
+        safeGetValue('Screws.Total') +
+        safeGetValue('MC4.Total') +
+        safeGetValue('AluminiumProfile.Total') +
+        safeGetValue('FusileFuse.Total') +
+        safeGetValue('Surges.Total') +
+        safeGetValue('CableDuct.Total') +
+        safeGetValue('IntermediateClamps.Total') +
+        safeGetValue('CornerClamps.Total') +
+        safeGetValue('MixClamps.Total') +
+        safeGetValue('ACFuse.Price') +
+        safeGetValue('MiniRail.Total') +
+        safeGetValue('Prezoane.Total'),
     };
 
     const TransportCost =
-      Number(getValues('Car.Total')) ||
-      0 + Number(getValues('Gas.Total')) ||
-      0 + Number(getValues('Rent.PricePerRoom')) ||
-      0 * Number(getValues('Rent.Rooms')) ||
-      0 * Number(getValues('Rent.Days')) ||
-      0;
+      Number(safeGetValue('Car.Total')) +
+      Number(safeGetValue('Gas.Total')) +
+      Number(safeGetValue('Rent.PricePerRoom')) *
+        Number(safeGetValue('Rent.Rooms')) *
+        Number(safeGetValue('Rent.Days'));
 
     const inverterCost = Math.ceil(getValues('Inverter.Price'));
 
@@ -75,7 +76,10 @@ const ConfirmOkPage = () => {
 
     const transportCost = Number(TransportCost);
 
-    const laborCost = Math.ceil(getValues('Labor'));
+    const miscCost =
+      Number(getValues('ProsumerDoc') ? 500 : 0) +
+      Number(getValues('Labor')) +
+      Number(getValues('WorkshopRent.Total'));
 
     const TotalCosts =
       inverterCost +
@@ -84,7 +88,7 @@ const ConfirmOkPage = () => {
       installationCost +
       connectivityCost +
       transportCost +
-      laborCost;
+      miscCost;
 
     setTotalCostsWithoutComission(Math.ceil(TotalCosts));
 

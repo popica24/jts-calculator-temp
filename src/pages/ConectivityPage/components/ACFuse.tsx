@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconTrash } from '@tabler/icons-react';
 import { Controller, useWatch } from 'react-hook-form';
 import { Select, Slider, Table, Text } from '@mantine/core';
@@ -7,27 +7,45 @@ import { SiguranteAC } from '@/utils/database';
 import { SystemTypes } from '@/utils/types';
 
 const MixClamps = () => {
-  const { getValues, setValue, control } = useFormValues();
+  const { getValues, setValue, control, register } = useFormValues();
 
-  const inverter = getValues('Inverter');
+  const [acFuse, setAcFuse] = useState<any>();
 
-  let systemType = getValues('SystemType');
+  useEffect(() => {
+    register('ACFuse', { value: { Power: 0, Price: 0 } });
+  }, [register]);
 
-  if (systemType == SystemTypes.MonoHybrid) {
-    systemType = SystemTypes.Mono;
-  }
+  useEffect(() => {
+    const inverter = getValues('Inverter');
+    let systemType = getValues('SystemType');
 
-  if (systemType == SystemTypes.TrifazatHybrid) {
-    systemType = SystemTypes.Trifazat;
-  }
+    if (systemType === SystemTypes.MonoHybrid) {
+      systemType = SystemTypes.Mono;
+    }
 
-  let acFuse = SiguranteAC.find((s) => s.Inverter == inverter?.kW && s.InverterType == systemType);
+    if (systemType === SystemTypes.TrifazatHybrid) {
+      systemType = SystemTypes.Trifazat;
+    }
 
-  if (!acFuse) {
-    acFuse = SiguranteAC[0];
-  }
+    let _acFuse = SiguranteAC.find(
+      (s) => s.Inverter === inverter?.kW && s.InverterType === systemType
+    );
 
-  setValue('ACFuse', acFuse);
+    if (_acFuse === undefined) {
+      _acFuse = SiguranteAC[0];
+    }
+
+    setAcFuse(_acFuse);
+  }, []);
+
+  // Use useEffect to setValue when acFuse changes
+  useEffect(() => {
+    if (acFuse) {
+      setValue('ACFuse', acFuse);
+    }
+  }, [acFuse, setValue]);
+
+  if (!acFuse) return <></>;
 
   return (
     <Table.Tr fz={18} style={{ cursor: 'pointer' }}>

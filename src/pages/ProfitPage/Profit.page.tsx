@@ -141,7 +141,7 @@ const ProfitPage = () => {
           changeValue={() => handleMontageChange(100)}
           subtractValue={() => handleMontageChange(-100)}
           img="https://nakedsolar.co.uk/wp-content/uploads/bfi_thumb/pitched-roof-mounting-for-solar-pv-panels-qrktt8qwskhb1n6qpbnpfb9e3xv7ep5kdw4tqy1sa8.png"
-          title="Montaj Panouri"
+          title="Structura Panouri"
           text={`${getValues('MontageType.Type')}`}
           total={installationCost || 0}
         />
@@ -163,15 +163,6 @@ const ProfitPage = () => {
             total={-1}
           />
         )}
-
-        <CategoryCard
-          changeValue={() => handleTransportChange(100)}
-          subtractValue={() => handleTransportChange(-100)}
-          img="https://yload.ro/wp-content/uploads/2021/06/transportation-and-logistics-of-container-cargo-ship-and-cargo-plane-1-scaled.jpg"
-          title="Transport"
-          text={'Masina, Chrie Hala, Motorina, etc...'}
-          total={transportCost}
-        />
       </Flex>
       <Title order={3} my={'lg'}>
         Total costuri lucrare fara TVA : RON {totalCosts}

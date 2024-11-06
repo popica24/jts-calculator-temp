@@ -1,10 +1,15 @@
+import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const CableDuct = () => {
-  const { getValues, control } = useFormValues();
-
+  const { getValues, control, register } = useFormValues();
+  useEffect(() => {
+    register('CableDuct', {
+      value: { Quantity: 4, Total: Number((4 * 20).toFixed(2)), PricePerPiece: 20 },
+    });
+  }, [register]);
   const cableDuct = getValues('CableDuct');
 
   return (
