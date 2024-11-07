@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const AluminiumProfileRow = () => {
   const { getValues, setValue, control } = useFormValues();
@@ -54,13 +55,13 @@ const AluminiumProfileRow = () => {
                 field.onChange({
                   ...aluminiumProfile,
                   Quantity: e,
-                  Total: (e * 65).toFixed(2),
+                  Total: SafeRoundNumber(e, 65),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {aluminiumProfile?.Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {aluminiumProfile?.Total}</Table.Td>
         </Table.Tr>
       )}
     />

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 import { MontageTypes } from '@/utils/types';
 
 const PrezoaneRow = () => {
@@ -24,7 +25,7 @@ const PrezoaneRow = () => {
       calculatedQuantity += 1;
     }
 
-    const calculatedTotal = Number((calculatedQuantity * 12.5).toFixed(2));
+    const calculatedTotal = Number(calculatedQuantity * 12.5);
 
     setValue('Prezoane', {
       PricePerPiece: 12.5,
@@ -54,13 +55,13 @@ const PrezoaneRow = () => {
                 field.onChange({
                   ...prezoane,
                   Quantity: e,
-                  Total: (e * 12.5).toFixed(2),
+                  Total: SafeRoundNumber(e, 12.5) ,
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {prezoane.Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {prezoane.Total}</Table.Td>
         </Table.Tr>
       )}
     />

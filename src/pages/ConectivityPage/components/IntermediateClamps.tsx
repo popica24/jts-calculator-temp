@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const IntermediateClamps = () => {
   const { setValue, control } = useFormValues();
@@ -37,13 +38,13 @@ const IntermediateClamps = () => {
                 field.onChange({
                   ...clamps,
                   Quantity: e,
-                  Total: (e * 5).toFixed(2),
+                  Total: SafeRoundNumber(e, 5),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {clamps.Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {clamps.Total}</Table.Td>
         </Table.Tr>
       )}
     />

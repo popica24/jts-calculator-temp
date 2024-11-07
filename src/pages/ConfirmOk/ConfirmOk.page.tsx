@@ -92,6 +92,8 @@ const ConfirmOkPage = () => {
 
     setTotalCostsWithoutComission(Math.ceil(TotalCosts));
 
+    setTotalCosts(Math.ceil(totalCosts));
+
     calculateComission();
   }, []);
 

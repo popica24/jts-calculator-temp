@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const SurgesRow = () => {
   const { getValues, setValue, control } = useFormValues();
@@ -43,13 +44,13 @@ const SurgesRow = () => {
                 field.onChange({
                   ...Surges,
                   Quantity: e,
-                  Total: (e * 100).toFixed(2),
+                  Total: SafeRoundNumber(e, 100),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {getValues('Surges').Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {getValues('Surges').Total}</Table.Td>
         </Table.Tr>
       )}
     />

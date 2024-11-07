@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Controller, useWatch } from 'react-hook-form';
 import { Slider, Table } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const MiniRailsTypes = () => {
   const { getValues, setValue, control } = useFormValues();
@@ -39,13 +40,13 @@ const MiniRailsTypes = () => {
                 field.onChange({
                   ...miniRail,
                   Quantity: e,
-                  Total: (e * 12.85).toFixed(2),
+                  Total: SafeRoundNumber(e, 12.85),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {miniRail.Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {miniRail.Total}</Table.Td>
         </Table.Tr>
       )}
     />

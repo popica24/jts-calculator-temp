@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const SolarCableRow = () => {
   const { getValues, control } = useFormValues();
@@ -33,12 +34,12 @@ const SolarCableRow = () => {
                 field.onChange({
                   ...solarCable,
                   Length: e,
-                  Total: (e * 3.3).toFixed(2),
+                  Total: SafeRoundNumber(e, 3.3),
                 })
               }
             />
           </Table.Td>
-          <Table.Td>RON {getValues('SolarCable.Total')}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {getValues('SolarCable.Total')}</Table.Td>
         </Table.Tr>
       )}
     />

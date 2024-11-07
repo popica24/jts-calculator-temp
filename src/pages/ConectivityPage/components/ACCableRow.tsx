@@ -63,6 +63,8 @@ const ACCableRow = () => {
           ? (acCable!.FirstFallbackPrice * getValues('ACCableType.Length')).toFixed(2)
           : (acCable!.SecondFallbackPrice * getValues('ACCableType.Length')).toFixed(2);
 
+    setValue('ACCableType.Total', Number(cablePrice));
+
     if (getValues('ACCableType.Length') != null) {
       return 'RON' + cablePrice;
     }
@@ -97,15 +99,7 @@ const ACCableRow = () => {
               onChange={(e) => field.onChange(handleAcCableTypeChange(e))}
             />
           </Table.Td>
-          <Table.Td>
-            <p
-              style={{
-                minWidth: '11ch',
-              }}
-            >
-              {handleAcCablePriceChange()}
-            </p>
-          </Table.Td>
+          <Table.Td miw={'12ch'}>{handleAcCablePriceChange()}</Table.Td>
         </Table.Tr>
       )}
     />

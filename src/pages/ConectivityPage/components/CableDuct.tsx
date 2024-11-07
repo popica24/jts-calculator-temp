@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const CableDuct = () => {
   const { getValues, control, register } = useFormValues();
@@ -38,13 +39,13 @@ const CableDuct = () => {
                 field.onChange({
                   ...cableDuct,
                   Quantity: e,
-                  Total: (e * 20).toFixed(2),
+                  Total: SafeRoundNumber(e, 20),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {getValues('CableDuct').Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {getValues('CableDuct').Total}</Table.Td>
         </Table.Tr>
       )}
     />

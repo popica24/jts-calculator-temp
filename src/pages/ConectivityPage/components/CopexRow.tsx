@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { Slider, Table, Text } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
+import { SafeRoundNumber } from '@/utils/processNumber';
 
 const CopexRow = () => {
   const { getValues, setValue, control } = useFormValues();
@@ -33,13 +34,13 @@ const CopexRow = () => {
                 field.onChange({
                   ...groundingCable,
                   Length: e,
-                  Total: (e * 6).toFixed(2),
+                  Total: SafeRoundNumber(e, 6),
                 })
               }
             />
           </Table.Td>
 
-          <Table.Td>RON {getValues('CopexCable').Total}</Table.Td>
+          <Table.Td miw={'12ch'}>RON {getValues('CopexCable').Total}</Table.Td>
         </Table.Tr>
       )}
     />
