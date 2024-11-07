@@ -18,7 +18,12 @@ const PrezoaneRow = () => {
       return total;
     };
 
-    const calculatedQuantity = Math.ceil((calculatePrice() * 3.54) / 1.2);
+    let calculatedQuantity = Math.ceil((calculatePrice() * 3.54) / 0.8);
+
+    if (calculatedQuantity % 2 != 0) {
+      calculatedQuantity += 1;
+    }
+
     const calculatedTotal = Number((calculatedQuantity * 12.5).toFixed(2));
 
     setValue('Prezoane', {

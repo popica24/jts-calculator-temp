@@ -19,7 +19,7 @@ const LaborRow = () => {
 
       const total = 400 * kw;
 
-      setValue('Labor', total);
+      setValue('Labor', Math.ceil(total));
     }
   }, [isOutsourced]);
 

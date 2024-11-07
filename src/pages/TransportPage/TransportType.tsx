@@ -16,7 +16,7 @@ const MiscType = () => {
         <CarRow />
         <GasRow />
         <RentRow />
-        <Button onClick={nextStep}>Pasul urmator</Button>
+        <Button onClick={nextStep}>Pasul urmator (adaosuri finale)</Button>
         <div>
           <DevTool control={control} />
         </div>

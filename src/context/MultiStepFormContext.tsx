@@ -84,7 +84,19 @@ export const MultiStepFormContextProvider = ({ children }: MultiStepFormContextP
                   description="Complete the fields with proper information about connectivity elements"
                 />
                 <Stepper.Step
+                  label="Subcontractare"
+                  description="Complete the fields with proper information about connectivity elements"
+                />
+                <Stepper.Step
                   label="Adauga transport"
+                  description="Complete details like transport, gas, poundage, etc."
+                />
+                <Stepper.Step
+                  label="Adaosuri finale"
+                  description="Complete details like transport, gas, poundage, etc."
+                />
+                <Stepper.Step
+                  label="Comision lucrare"
                   description="Complete details like transport, gas, poundage, etc."
                 />
               </Stepper>

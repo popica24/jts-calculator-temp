@@ -16,8 +16,14 @@ const MixClamps = () => {
       return total;
     };
 
+    let clamps = Math.ceil(calculatePrice() / 2 + 1);
+
+    if (clamps % 2 != 0) {
+      clamps += 1;
+    }
+
     // Calculate initial values for Quantity and Total
-    const initialQuantity = Math.ceil(calculatePrice() / 2 + 1);
+    const initialQuantity = clamps;
     const initialTotal = initialQuantity * 5;
 
     setValue('MixClamps', {

@@ -122,7 +122,7 @@ export type FusibleFuseProps = {
 
 export type SurgesProps = {
     Quantity: number;
-    PricePerPiece : 65;
+    PricePerPiece : 100;
     Total: number
 }
 

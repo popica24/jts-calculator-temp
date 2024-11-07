@@ -33,7 +33,7 @@ const AddsTypePage = () => {
           </Table.Tbody>
         </Table>
       </ScrollArea>
-      <Button onClick={nextStep}>Next Step</Button>
+      <Button onClick={nextStep}>Pasul urmator (Comision)</Button>
       <div>
         <DevTool control={control} />
       </div>

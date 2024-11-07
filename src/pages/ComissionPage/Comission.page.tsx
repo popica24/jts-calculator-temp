@@ -47,8 +47,8 @@ const ComissionPage = () => {
             onChange={(e) => setValue('Comission', Number(e))}
           />
         )}
+        <Button onClick={nextStep}>Pasul urmator (Alege profitul)</Button>
       </Stack>
-      <Button onClick={nextStep}>Pasul urmator</Button>
     </>
   );
 };

@@ -106,6 +106,7 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
       SolarCable: {
         Length: 125,
         Total: 412.5,
+        PricePerM: 3.3,
       },
       GroundingCable: {
         Length: 30,
@@ -142,6 +143,7 @@ export const FormValuesContextProvider = ({ children }: FormValuesContextProvide
       Surges: {
         Quantity: 2,
         Total: 200,
+        PricePerPiece: 100,
       },
       CableDuct: {
         Quantity: 4,

@@ -26,7 +26,7 @@ const FixingTypes = () => {
       <Text ta="start" w="100%" ms="xl">
         Fixare si instalare
       </Text>
-      <ScrollArea h={1400} mt="lg" ms="xl" w="100%">
+      <ScrollArea h={1100} mt="lg" ms="xl" w="100%">
         <Table w="100%" highlightOnHover>
           <Table.Thead>
             <Table.Tr>

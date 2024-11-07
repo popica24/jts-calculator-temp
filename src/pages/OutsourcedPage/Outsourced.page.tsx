@@ -1,10 +1,13 @@
+import { IconInfoCircle } from '@tabler/icons-react';
 import { Controller, useWatch } from 'react-hook-form';
-import { Button, SegmentedControl, Stack, Text, Title } from '@mantine/core';
+import { Blockquote, Button, SegmentedControl, Stack, Text, Title } from '@mantine/core';
 import { useFormValues } from '@/context/FormValuesContext';
 import { useFormStep } from '@/context/MultiStepFormContext';
 
 const OutsourcedPage = () => {
-  const { control } = useFormValues();
+  window.scrollTo(0, 0);
+
+  const { control, getValues } = useFormValues();
 
   const { nextStep, nextTwoSteps } = useFormStep();
 
@@ -38,7 +41,15 @@ const OutsourcedPage = () => {
         />
         {outsourceWatch ? (
           <>
-            <Text>Se va ignora transportul</Text>
+            <Blockquote color="blue" icon={<IconInfoCircle />} mt="xl">
+              • La lucrarile subcontractate, transportul nu se ia in calcul <br />• La lucrarile
+              subcontractate, pretul manoperei este de RON 400 x Nr. kW{' '}
+              <Text fz={'xs'}>
+                In acest caz, pentru {(getValues('Panel.W') * getValues('NumberOfPanels')) / 1000}kW
+                pretul manoperei este de{' '}
+                {Math.ceil((getValues('Panel.W') * getValues('NumberOfPanels')) / 1000) * 400} RON
+              </Text>
+            </Blockquote>
             <Button onClick={nextTwoSteps}>Pasul urmator (Adaosuri)</Button>
           </>
         ) : (
