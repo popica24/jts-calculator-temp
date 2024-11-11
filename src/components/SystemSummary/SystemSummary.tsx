@@ -1,9 +1,13 @@
-import { IconPencil, IconTrash } from '@tabler/icons-react';
-import { ActionIcon, Anchor, Avatar, Badge, Group, rem, Table, Text } from '@mantine/core';
+import { useState } from 'react';
+import { IconMinus, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
+import { ActionIcon, Anchor, Avatar, Badge, Flex, Group, rem, Table, Text } from '@mantine/core';
+import { useFormMethods } from '@/context/FormMethodsContext';
 import { useFormValues } from '@/context/FormValuesContext';
 
 const SystemSummary = () => {
-  const { getValues } = useFormValues();
+  const { getValues, setValue } = useFormValues();
+
+  const { recalculatePanels } = useFormMethods();
 
   const data = [
     {
@@ -26,13 +30,6 @@ const SystemSummary = () => {
       quantity: '1',
       total: 'RON ' + getValues('Inverter.Price'),
       color: 'cyan',
-    },
-    {
-      name: `${getValues('Panel.Name')} ${getValues('Panel.KG')}KG ${getValues('Panel.W')}W`,
-      type: 'Panels',
-      quantity: getValues('NumberOfPanels'),
-      total: 'RON ' + (getValues('Panel.Price') * getValues('NumberOfPanels')).toFixed(2),
-      color: 'green',
     },
     {
       name: `${getValues('MontageType.Type')}`,
@@ -264,6 +261,14 @@ const SystemSummary = () => {
       </Table.Td>
     </Table.Tr>
   ));
+
+  // {
+  //   name: ,
+  //   type: 'Panels',
+  //   quantity: ,
+  //   total: 'RON ' + (getValues('Panel.Price') * getValues('NumberOfPanels')).toFixed(2),
+  //   color: 'green',
+  // },
   return (
     <Table.ScrollContainer minWidth={800}>
       <Table verticalSpacing="sm">
@@ -276,7 +281,58 @@ const SystemSummary = () => {
             <Table.Th />
           </Table.Tr>
         </Table.Thead>
-        <Table.Tbody>{rows}</Table.Tbody>
+        <Table.Tbody>
+          <Table.Tr>
+            <Table.Td>
+              <Group gap="sm">
+                <Text fz="sm" fw={500}>
+                  Panouri
+                </Text>
+              </Group>
+            </Table.Td>
+
+            <Table.Td>
+              <Badge color="green" variant="light">
+                {getValues('Panel.Name')} {getValues('Panel.KG')}KG {getValues('Panel.W')}W
+              </Badge>
+            </Table.Td>
+
+            <Table.Td>
+              <Text variant="light">
+                <Flex align={'center'} direction={'row'}>
+                  {/* <span>
+                    <IconMinus
+                      size={'12px'}
+                      style={{
+                        marginInlineEnd: '5px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => recalculatePanels(Number(getValues('NumberOfPanels')) - 1, 0)}
+                    />
+                  </span> */}
+                  {getValues('NumberOfPanels')}
+                  {/* <span>
+                    <IconPlus
+                      size={'12px'}
+                      style={{
+                        marginInlineStart: '5px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => recalculatePanels(Number(getValues('NumberOfPanels')) + 1, 0)}
+                    />
+                  </span> */}
+                </Flex>
+              </Text>
+            </Table.Td>
+
+            <Table.Td>
+              <Text variant="light">
+                RON {(getValues('Panel.Price') * getValues('NumberOfPanels')).toFixed(2)}
+              </Text>
+            </Table.Td>
+          </Table.Tr>
+          {rows}
+        </Table.Tbody>
       </Table>
     </Table.ScrollContainer>
   );

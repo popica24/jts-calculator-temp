@@ -335,6 +335,19 @@ export const ACCables: ACCableProps[] = [{
     MaxLength: 170,
     Length: 0,Total: 0
 },{
+    SystemType: SystemTypes.TrifazatHybrid,
+    InverterPower: 8,
+    Type: "5x4mm",
+    Price: 9.11,
+    FirstMaxLength: 120,
+    FirstFallbackType: "5x6mm",
+    FirstFallbackPrice: 16.28,
+    SecondMaxLength: 170,
+    SecondFallbackType: "5x6mm",
+    SecondFallbackPrice: 16.28,
+    MaxLength: 170,
+    Length: 0,Total: 0
+},{
     SystemType: SystemTypes.Trifazat,
     InverterPower: 10,
     Type: "5x6mm",

@@ -2,6 +2,7 @@ import '@mantine/core/styles.css';
 
 import { useEffect } from 'react';
 import { MantineProvider } from '@mantine/core';
+import { FormMethodsContextProvider } from './context/FormMethodsContext';
 import { FormValuesContextProvider } from './context/FormValuesContext';
 import { MultiStepFormContextProvider } from './context/MultiStepFormContext';
 import AddsTypePage from './pages/AddsPage/AddsType.page';
@@ -31,19 +32,21 @@ export default function App() {
   return (
     <MantineProvider theme={theme}>
       <FormValuesContextProvider>
-        <MultiStepFormContextProvider>
-          <SystemTypePage />
-          <InverterTypePage />
-          <PanelsTypePage />
-          <MontageTypePage />
-          <ConectivityTypePage />
-          <OutsourcedPage />
-          <MiscType />
-          <AddsTypePage />
-          <ComissionPage />
-          <ConfirmOkPage />
-          <ProfitPage />
-        </MultiStepFormContextProvider>
+        <FormMethodsContextProvider>
+          <MultiStepFormContextProvider>
+            <SystemTypePage />
+            <InverterTypePage />
+            <PanelsTypePage />
+            <MontageTypePage />
+            <ConectivityTypePage />
+            <OutsourcedPage />
+            <MiscType />
+            <AddsTypePage />
+            <ComissionPage />
+            <ConfirmOkPage />
+            <ProfitPage />
+          </MultiStepFormContextProvider>
+        </FormMethodsContextProvider>
       </FormValuesContextProvider>
     </MantineProvider>
   );

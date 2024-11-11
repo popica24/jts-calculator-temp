@@ -4,7 +4,7 @@ import { useFormValues } from '@/context/FormValuesContext';
 import { useFormStep } from '@/context/MultiStepFormContext';
 
 const ConfirmOkPage = () => {
-  const { setValue, getValues } = useFormValues();
+  const { setValue, getValues, watch } = useFormValues();
 
   const { nextStep } = useFormStep();
 
@@ -32,6 +32,9 @@ const ConfirmOkPage = () => {
     return isNaN(value) ? 0 : value;
   };
   //total cost without comission
+
+  const numberOfPanels = watch('NumberOfPanels');
+
   useEffect(() => {
     const ConectivityGlobal = {
       Total:
@@ -95,7 +98,7 @@ const ConfirmOkPage = () => {
     setTotalCosts(Math.ceil(totalCosts));
 
     calculateComission();
-  }, []);
+  }, [numberOfPanels]);
 
   useEffect(() => {
     calculateComission();
