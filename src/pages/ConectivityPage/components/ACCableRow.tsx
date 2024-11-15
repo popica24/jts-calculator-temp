@@ -10,8 +10,8 @@ const ACCableRow = () => {
   const systemType = getValues('SystemType');
   const inverterPower = getValues('Inverter.kW');
 
-  const [acCable, setAcCable] = useState(
-    ACCables.find((cable) => cable.SystemType == systemType && cable.InverterPower == inverterPower)
+  const acCable = ACCables.find(
+    (cable) => cable.SystemType == systemType && cable.InverterPower == inverterPower
   );
 
   useEffect(() => {

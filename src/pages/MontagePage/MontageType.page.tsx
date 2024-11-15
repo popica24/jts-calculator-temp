@@ -17,7 +17,6 @@ const MontageTypePage = () => {
   const [showMontage, setShowMontage] = useState(false);
 
   useEffect(() => {
-    console.log('asd');
     const shouldShowMontage =
       montage.Type === MontageTypes.Sol || montage.Type === MontageTypes.AcoperisDrept;
 

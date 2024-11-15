@@ -84,7 +84,7 @@ const ConfirmOkPage = () => {
       Number(getValues('Labor')) +
       Number(getValues('WorkshopRent.Total'));
 
-    const TotalCosts =
+    const TotalCostsWithoutTax =
       inverterCost +
       panelsCost +
       batteryCost +
@@ -92,6 +92,8 @@ const ConfirmOkPage = () => {
       connectivityCost +
       transportCost +
       miscCost;
+
+    const TotalCosts = TotalCostsWithoutTax * 1.16;
 
     setTotalCostsWithoutComission(Math.ceil(TotalCosts));
 

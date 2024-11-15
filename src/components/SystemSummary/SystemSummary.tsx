@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { IconMinus, IconPencil, IconPlus, IconTrash } from '@tabler/icons-react';
-import { ActionIcon, Anchor, Avatar, Badge, Flex, Group, rem, Table, Text } from '@mantine/core';
+import { IconMinus, IconPlus } from '@tabler/icons-react';
+import { Badge, Flex, Group, Table, Text } from '@mantine/core';
 import { useFormMethods } from '@/context/FormMethodsContext';
 import { useFormValues } from '@/context/FormValuesContext';
+import InverterSelect from './InverterSelect';
 
 const SystemSummary = () => {
-  const { getValues, setValue } = useFormValues();
+  const { getValues } = useFormValues();
 
   const { recalculatePanels } = useFormMethods();
 
@@ -24,13 +24,13 @@ const SystemSummary = () => {
       total: getValues('Battery')?.price || 0,
       color: 'green',
     },
-    {
-      name: `${getValues('Inverter.Brand')} ${getValues('Inverter.kW')}kW ${getValues('Inverter.Type')}`,
-      type: 'Invertor',
-      quantity: '1',
-      total: 'RON ' + getValues('Inverter.Price'),
-      color: 'cyan',
-    },
+    // {
+    //   name: `${getValues('Inverter.Brand')} ${getValues('Inverter.kW')}kW ${getValues('Inverter.Type')}`,
+    //   type: 'Invertor',
+    //   quantity: '1',
+    //   total: 'RON ' + getValues('Inverter.Price'),
+    //   color: 'cyan',
+    // },
     {
       name: `${getValues('MontageType.Type')}`,
       type: 'Montaj',
@@ -125,14 +125,14 @@ const SystemSummary = () => {
     {
       name: `Siguranta AC`,
       type: 'Fixare',
-      quantity: `${getValues('ACFuse.Power')}`,
+      quantity: `${getValues('ACFuse.Power')}A`,
       total: `RON ${getValues('ACFuse.Price')}`,
       color: 'purple',
     },
     {
       name: `Descarcatoare`,
       type: 'Fixare',
-      quantity: `${getValues('Surges.Quantity')}A`,
+      quantity: `${getValues('Surges.Quantity')}`,
       total: `RON ${getValues('Surges.Total')}`,
       color: 'purple',
     },
@@ -236,8 +236,8 @@ const SystemSummary = () => {
     },
   ];
 
-  const rows = data.map((item) => (
-    <Table.Tr key={item.type}>
+  const rows = data.map((item, i) => (
+    <Table.Tr key={i}>
       <Table.Td>
         <Group gap="sm">
           <Text fz="sm" fw={500}>
@@ -262,13 +262,6 @@ const SystemSummary = () => {
     </Table.Tr>
   ));
 
-  // {
-  //   name: ,
-  //   type: 'Panels',
-  //   quantity: ,
-  //   total: 'RON ' + (getValues('Panel.Price') * getValues('NumberOfPanels')).toFixed(2),
-  //   color: 'green',
-  // },
   return (
     <Table.ScrollContainer minWidth={800}>
       <Table verticalSpacing="sm">
@@ -300,7 +293,7 @@ const SystemSummary = () => {
             <Table.Td>
               <Text variant="light">
                 <Flex align={'center'} direction={'row'}>
-                  {/* <span>
+                  <span>
                     <IconMinus
                       size={'12px'}
                       style={{
@@ -309,9 +302,9 @@ const SystemSummary = () => {
                       }}
                       onClick={() => recalculatePanels(Number(getValues('NumberOfPanels')) - 1, 0)}
                     />
-                  </span> */}
+                  </span>
                   {getValues('NumberOfPanels')}
-                  {/* <span>
+                  <span>
                     <IconPlus
                       size={'12px'}
                       style={{
@@ -320,7 +313,7 @@ const SystemSummary = () => {
                       }}
                       onClick={() => recalculatePanels(Number(getValues('NumberOfPanels')) + 1, 0)}
                     />
-                  </span> */}
+                  </span>
                 </Flex>
               </Text>
             </Table.Td>
@@ -331,6 +324,7 @@ const SystemSummary = () => {
               </Text>
             </Table.Td>
           </Table.Tr>
+          <InverterSelect />
           {rows}
         </Table.Tbody>
       </Table>
