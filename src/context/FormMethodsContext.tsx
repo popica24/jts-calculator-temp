@@ -89,8 +89,6 @@ export const FormMethodsContextProvider = ({ children }: FormMethodsContextProvi
             ? (acCable!.FirstFallbackPrice * getValues('ACCableType.Length')).toFixed(2)
             : (acCable!.SecondFallbackPrice * getValues('ACCableType.Length')).toFixed(2);
 
-      console.log(cablePrice);
-
       setValue('ACCableType.Total', Number(cablePrice));
     };
 

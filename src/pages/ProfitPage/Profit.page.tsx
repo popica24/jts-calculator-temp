@@ -11,7 +11,11 @@ const ProfitPage = () => {
     return isNaN(value) || value == undefined || value == null ? 0 : value;
   };
 
-  const [profit, setProfit] = useState(safeGetValue('Price') - safeGetValue('Costs'));
+  const [profit, setProfit] = useState(
+    safeGetValue('Price') -
+      safeGetValue('Costs') -
+      (safeGetValue('Price') - safeGetValue('Costs')) * 0.16
+  );
 
   const [kw, setKw] = useState(0);
 
@@ -338,11 +342,18 @@ const ProfitPage = () => {
       'Pret total': totalCosts * 1.09,
     },
     {
+      Produs: 'Impozit pe profit',
+      CNT: 1,
+      'U/M': 'Buc',
+      'Pret per Buc': profit * 0.16,
+      'Pret total': profit * 0.16,
+    },
+    {
       Produs: 'Total profit',
       CNT: 1,
       'U/M': 'Buc',
-      'Pret per Buc': getValues('Price') - totalCosts,
-      'Pret total': getValues('Price') - totalCosts,
+      'Pret per Buc': getValues('Price') - totalCosts - (getValues('Price') - totalCosts) * 0.16,
+      'Pret total': getValues('Price') - totalCosts - (getValues('Price') - totalCosts) * 0.16,
     },
     {
       Produs: 'Total',
@@ -352,89 +363,88 @@ const ProfitPage = () => {
       'Pret total': getValues('Price'),
     },
   ];
-  console.log(getValues('Comission'));
 
   return (
-    <Flex align={'center'} justify={'center'} h={'100vh'} direction={'column'}>
-      <Title order={3} mb={'lg'}>
-        Total lucrare per inglobari
-      </Title>
-      <Flex direction={'row'} align={'stretch'} justify={'center'}>
-        <CategoryCard
-          changeValue={() => handleInverterChange(100)}
-          subtractValue={() => handleInverterChange(-100)}
-          img="https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg"
-          title="Invertor"
-          text={`${getValues('Inverter.Brand')} ${safeGetValue('Inverter.kW')}kW ${getValues('Inverter.Type')}`}
-          total={inverterCost || 0}
-        />
-        {batteryCost > 0 && (
-          <CategoryCard
-            changeValue={() => handleBatteryChange(100)}
-            subtractValue={() => handleBatteryChange(-100)}
-            img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
-            title="Baterie"
-            text={`${safeGetValue('Battery.model')}`}
-            total={batteryCost || 0}
-          />
-        )}
-        <CategoryCard
-          changeValue={() => handlePanelsChange(100)}
-          subtractValue={() => handlePanelsChange(-100)}
-          img="https://tawenergy.ro/wp-content/uploads/2023/09/Fundal-Blog-1200-%C3%97-800-px-7.png"
-          title="Panouri"
-          text={`${safeGetValue('NumberOfPanels')}x ${getValues('Panel.Name')} ${safeGetValue('Panel.W')}W`}
-          total={panelsCost || 0}
-        />
-        <CategoryCard
-          changeValue={() => handleMontageChange(100)}
-          subtractValue={() => handleMontageChange(-100)}
-          img="https://nakedsolar.co.uk/wp-content/uploads/bfi_thumb/pitched-roof-mounting-for-solar-pv-panels-qrktt8qwskhb1n6qpbnpfb9e3xv7ep5kdw4tqy1sa8.png"
-          title="Structura Montaj Panouri"
-          text={`${getValues('MontageType.Type')}`}
-          total={installationCost || 0}
-        />
-        <CategoryCard
-          changeValue={() => handleConnectivityChange(100)}
-          subtractValue={() => handleConnectivityChange(-100)}
-          img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
-          title="Conectica"
-          text={'Tablou SmartPanel , Tablout Stringuri, Cablu AC, etc...'}
-          total={connectivityCost || 0}
-        />
-        <CategoryCard
-          changeValue={() => handleLaborChange(100)}
-          subtractValue={() => handleLaborChange(-100)}
-          img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
-          title="Manopera"
-          text={`${getValues('Outsourced') ? 'Subcontractata' : 'In regim propriu'}`}
-          total={laborTotal || 0}
-        />
-        {comissionCost > 0 && (
-          <CategoryCard
-            changeValue={() => handleConnectivityChange(100)}
-            subtractValue={() => handleConnectivityChange(-100)}
-            img="https://img.freepik.com/vector-premium/icono-comision-ilustracion-3d-coleccion-marketing-afiliados-icono-3d-comision-creativa-plantillas-diseno-web-infografias-mas_676904-340.jpg"
-            title="Comision"
-            text={`RON ${comissionCost}`}
-            total={-1}
-          />
-        )}
-      </Flex>
+    // <Flex align={'center'} justify={'center'} h={'100vh'} direction={'column'}>
+    //   <Title order={3} mb={'lg'}>
+    //     Total lucrare per inglobari
+    //   </Title>
+    //   <Flex direction={'row'} align={'stretch'} justify={'center'}>
+    //     <CategoryCard
+    //       changeValue={() => handleInverterChange(100)}
+    //       subtractValue={() => handleInverterChange(-100)}
+    //       img="https://www.deegesolar.co.uk/wp-content/uploads/2021/10/String_Inverter_FI.jpg"
+    //       title="Invertor"
+    //       text={`${getValues('Inverter.Brand')} ${safeGetValue('Inverter.kW')}kW ${getValues('Inverter.Type')}`}
+    //       total={inverterCost || 0}
+    //     />
+    //     {batteryCost > 0 && (
+    //       <CategoryCard
+    //         changeValue={() => handleBatteryChange(100)}
+    //         subtractValue={() => handleBatteryChange(-100)}
+    //         img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
+    //         title="Baterie"
+    //         text={`${safeGetValue('Battery.model')}`}
+    //         total={batteryCost || 0}
+    //       />
+    //     )}
+    //     <CategoryCard
+    //       changeValue={() => handlePanelsChange(100)}
+    //       subtractValue={() => handlePanelsChange(-100)}
+    //       img="https://tawenergy.ro/wp-content/uploads/2023/09/Fundal-Blog-1200-%C3%97-800-px-7.png"
+    //       title="Panouri"
+    //       text={`${safeGetValue('NumberOfPanels')}x ${getValues('Panel.Name')} ${safeGetValue('Panel.W')}W`}
+    //       total={panelsCost || 0}
+    //     />
+    //     <CategoryCard
+    //       changeValue={() => handleMontageChange(100)}
+    //       subtractValue={() => handleMontageChange(-100)}
+    //       img="https://nakedsolar.co.uk/wp-content/uploads/bfi_thumb/pitched-roof-mounting-for-solar-pv-panels-qrktt8qwskhb1n6qpbnpfb9e3xv7ep5kdw4tqy1sa8.png"
+    //       title="Structura Montaj Panouri"
+    //       text={`${getValues('MontageType.Type')}`}
+    //       total={installationCost || 0}
+    //     />
+    //     <CategoryCard
+    //       changeValue={() => handleConnectivityChange(100)}
+    //       subtractValue={() => handleConnectivityChange(-100)}
+    //       img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
+    //       title="Conectica"
+    //       text={'Tablou SmartPanel , Tablout Stringuri, Cablu AC, etc...'}
+    //       total={connectivityCost || 0}
+    //     />
+    //     <CategoryCard
+    //       changeValue={() => handleLaborChange(100)}
+    //       subtractValue={() => handleLaborChange(-100)}
+    //       img="https://bnsol.ro/image/cache/catalog/01%201300%2012V%201kw%201x300%20M12V1000%201x190A%20750W-728x800.jpg"
+    //       title="Manopera"
+    //       text={`${getValues('Outsourced') ? 'Subcontractata' : 'In regim propriu'}`}
+    //       total={laborTotal || 0}
+    //     />
+    //     {comissionCost > 0 && (
+    //       <CategoryCard
+    //         changeValue={() => handleConnectivityChange(100)}
+    //         subtractValue={() => handleConnectivityChange(-100)}
+    //         img="https://img.freepik.com/vector-premium/icono-comision-ilustracion-3d-coleccion-marketing-afiliados-icono-3d-comision-creativa-plantillas-diseno-web-infografias-mas_676904-340.jpg"
+    //         title="Comision"
+    //         text={`RON ${comissionCost}`}
+    //         total={-1}
+    //       />
+    //     )}
+    //   </Flex>
 
-      <Title order={3} my={'lg'}>
-        Total costuri lucrare fara TVA : RON {totalCosts}
-      </Title>
-      <Title order={3}>Total KW vanduti : {kw}kW</Title>
-      <Title order={3} my={'lg'}>
-        Pret per kW : {Math.ceil(safeGetValue('Price') / kw)}RON ~{' '}
-        {Math.ceil(safeGetValue('Price') / kw) / 5}€
-      </Title>
-      <Text>Profit de distribuit : {profit}</Text>
-      <Stack mb={'xl'}>
-        <ExcelExport data={data} />
-      </Stack>
-    </Flex>
+    // <Title order={3} my={'lg'}>
+    //   Total costuri lucrare fara TVA : RON {totalCosts}
+    // </Title>
+    // <Title order={3}>Total KW vanduti : {kw}kW</Title>
+    // <Title order={3} my={'lg'}>
+    //   Pret per kW : {Math.ceil(safeGetValue('Price') / kw)}RON ~{' '}
+    //   {Math.ceil(safeGetValue('Price') / kw) / 5}€
+    // </Title>
+    // <Text>Profit de distribuit : {profit}</Text>
+    <Stack mb={'xl'}>
+      <ExcelExport data={data} />
+    </Stack>
+    // </Flex>
   );
 };
 

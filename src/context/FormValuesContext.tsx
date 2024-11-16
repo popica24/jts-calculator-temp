@@ -71,6 +71,7 @@ export type FormValuesContextProps = {
   Comission: number;
   Costs: number;
   Price: number;
+  Tax: number;
 };
 
 type FormValuesContextProviderProps = {

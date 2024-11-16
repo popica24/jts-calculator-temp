@@ -5,7 +5,9 @@ import { useFormStep } from '@/context/MultiStepFormContext';
 
 const ConfirmOkPage = () => {
   const { setValue, getValues, watch } = useFormValues();
+  const [updateKey, setUpdateKey] = useState(0);
 
+  const forceUpdate = () => setUpdateKey((prev) => prev + 1);
   const { nextStep } = useFormStep();
 
   const [desiredPrice, setDesiredPrice] = useState(0);
@@ -35,6 +37,7 @@ const ConfirmOkPage = () => {
 
   const numberOfPanels = watch('NumberOfPanels');
 
+  const inverter = watch('Inverter');
   useEffect(() => {
     const ConectivityGlobal = {
       Total:
@@ -100,16 +103,17 @@ const ConfirmOkPage = () => {
     setTotalCosts(Math.ceil(totalCosts));
 
     calculateComission();
-  }, [numberOfPanels]);
+  }, [numberOfPanels, inverter]);
 
   useEffect(() => {
     calculateComission();
-  }, [desiredPrice]);
+  }, [desiredPrice, numberOfPanels]);
 
   const handleNextStep = () => {
     setValue('Comission', comission);
     setValue('Costs', totalCosts);
     setValue('Price', desiredPrice);
+    setValue('Tax', (desiredPrice - totalCosts) * 0.16);
     nextStep();
   };
 
@@ -129,7 +133,11 @@ const ConfirmOkPage = () => {
       )}
       <Text>Scrie in caseta de mai jos pretul cu care doresti sa vinzi lucrarea</Text>
       <NumberInput onChange={(e) => setDesiredPrice(Number(e))} />
-      {desiredPrice != 0 && <Title>Profitul dvs : RON{desiredPrice - totalCosts}</Title>}
+      {desiredPrice != 0 && (
+        <Title>
+          Profitul dvs : RON{desiredPrice - totalCosts - (desiredPrice - totalCosts) * 0.16}
+        </Title>
+      )}
       <Button onClick={handleNextStep}>Pasul Urmator (Ofertare)</Button>
     </Stack>
   );
