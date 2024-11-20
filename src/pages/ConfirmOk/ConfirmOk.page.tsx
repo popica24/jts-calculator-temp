@@ -87,7 +87,7 @@ const ConfirmOkPage = () => {
       Number(getValues('Labor')) +
       Number(getValues('WorkshopRent.Total'));
 
-    const TotalCostsWithoutTax =
+    const TotalCosts =
       inverterCost +
       panelsCost +
       batteryCost +
@@ -95,8 +95,6 @@ const ConfirmOkPage = () => {
       connectivityCost +
       transportCost +
       miscCost;
-
-    const TotalCosts = TotalCostsWithoutTax * 1.16;
 
     setTotalCostsWithoutComission(Math.ceil(TotalCosts));
 
@@ -135,7 +133,7 @@ const ConfirmOkPage = () => {
       <NumberInput onChange={(e) => setDesiredPrice(Number(e))} />
       {desiredPrice != 0 && (
         <Title>
-          Profitul dvs : RON{desiredPrice - totalCosts - (desiredPrice - totalCosts) * 0.16}
+          Profitul dvs : RON{desiredPrice * 1.16 - totalCosts}
         </Title>
       )}
       <Button onClick={handleNextStep}>Pasul Urmator (Ofertare)</Button>
