@@ -28,7 +28,7 @@ const SolarCableRow = () => {
               defaultValue={125}
               min={0}
               step={1}
-              max={225}
+              max={500}
               color="blue"
               onChange={(e) =>
                 field.onChange({
