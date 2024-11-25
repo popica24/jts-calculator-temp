@@ -5,11 +5,16 @@ import { useFormStep } from '@/context/MultiStepFormContext';
 
 const ConfirmOkPage = () => {
   const { setValue, getValues, watch } = useFormValues();
-  const [updateKey, setUpdateKey] = useState(0);
 
-  const forceUpdate = () => setUpdateKey((prev) => prev + 1);
   const { nextStep } = useFormStep();
-
+  const [kw, setKw] = useState(0);
+  const safeGetValue = (path: any) => {
+    const value = getValues(path);
+    return isNaN(value) ? 0 : value;
+  };
+  useEffect(() => {
+    setKw((safeGetValue('Panel.W') * safeGetValue('NumberOfPanels')) / 1000);
+  }, []);
   const [desiredPrice, setDesiredPrice] = useState(0);
 
   const [totalCosts, setTotalCosts] = useState(0);
@@ -29,10 +34,7 @@ const ConfirmOkPage = () => {
 
     setTotalCosts(totalCostsWithoutComission + _comission);
   };
-  const safeGetValue = (path: any) => {
-    const value = getValues(path);
-    return isNaN(value) ? 0 : value;
-  };
+
   //total cost without comission
 
   const numberOfPanels = watch('NumberOfPanels');
@@ -132,9 +134,14 @@ const ConfirmOkPage = () => {
       <Text>Scrie in caseta de mai jos pretul cu care doresti sa vinzi lucrarea</Text>
       <NumberInput onChange={(e) => setDesiredPrice(Number(e))} />
       {desiredPrice != 0 && (
-        <Title>
-          Profitul dvs : RON{desiredPrice * 1.16 - totalCosts}
-        </Title>
+        <>
+          <Title>
+            Profitul dvs : RON{desiredPrice - totalCosts - (desiredPrice - totalCosts) * 0.16}
+          </Title>
+          <Title>Profitul dvs (fara impozit) : RON{desiredPrice - totalCosts}</Title>
+          <Title>Impozit pe profit : RON{(desiredPrice - totalCosts) * 0.16}</Title>
+          <Title>Kw vanduti : {kw}</Title>
+        </>
       )}
       <Button onClick={handleNextStep}>Pasul Urmator (Ofertare)</Button>
     </Stack>

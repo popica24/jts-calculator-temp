@@ -11,96 +11,6 @@ const ProfitPage = () => {
     return isNaN(value) || value == undefined || value == null ? 0 : value;
   };
 
-  const [profit, setProfit] = useState(
-    safeGetValue('Price') -
-      safeGetValue('Costs') -
-      (safeGetValue('Price') - safeGetValue('Costs')) * 0.16
-  );
-
-  const [kw, setKw] = useState(0);
-
-  useEffect(() => {
-    setKw((safeGetValue('Panel.W') * safeGetValue('NumberOfPanels')) / 1000);
-  }, []);
-
-  const ConectivityTotal =
-    safeGetValue('StringTable.Price') +
-    safeGetValue('SmartMeterTable.Price') +
-    safeGetValue('ACCableType.Total') +
-    safeGetValue('SolarCable.Total') +
-    safeGetValue('GroundingCable.Total') +
-    safeGetValue('CopexCable.Total') +
-    safeGetValue('WoodScrews.Total') +
-    safeGetValue('Obo.Total') +
-    safeGetValue('Screws.Total') +
-    safeGetValue('MC4.Total') +
-    safeGetValue('FusileFuse.Total') +
-    safeGetValue('Surges.Total') +
-    safeGetValue('CableDuct.Total');
-
-  const InstallationTotal =
-    Math.ceil(safeGetValue('MontageType.Total')) +
-    safeGetValue('AluminiumProfile.Total') +
-    safeGetValue('IntermediateClamps.Total') +
-    safeGetValue('CornerClamps.Total') +
-    safeGetValue('MixClamps.Total') +
-    safeGetValue('ACFuse.Price') +
-    safeGetValue('MiniRail.Total') +
-    safeGetValue('Prezoane.Total');
-
-  const comissionCost = safeGetValue('Comission');
-
-  const [inverterCost, setInverterCost] = useState(Math.ceil(safeGetValue('Inverter.Price')));
-
-  const [panelsCost, setPanelsCost] = useState(
-    Math.ceil(safeGetValue('NumberOfPanels') * safeGetValue('Panel.Price'))
-  );
-
-  const [batteryCost, setBatteryCost] = useState(Math.ceil(safeGetValue('Battery.price')));
-
-  const [installationCost, setInstallationCost] = useState(InstallationTotal);
-
-  const [connectivityCost, setConnectivityCost] = useState(Math.ceil(ConectivityTotal));
-
-  const [laborTotal, setLaborTotal] = useState(safeGetValue('Labor'));
-
-  const totalCosts = safeGetValue('Costs');
-
-  const handleInverterChange = (ammount: number) => {
-    const newTotal = inverterCost + ammount;
-    setInverterCost(newTotal);
-    setProfit((prev) => prev - ammount);
-  };
-
-  const handlePanelsChange = (ammount: number) => {
-    const newTotal = panelsCost + ammount;
-    setPanelsCost(newTotal);
-    setProfit((prev) => prev - ammount);
-  };
-
-  const handleBatteryChange = (ammount: number) => {
-    const newTotal = batteryCost + ammount;
-    setBatteryCost(newTotal);
-    setProfit((prev) => prev - ammount);
-  };
-
-  const handleMontageChange = (ammount: number) => {
-    const newTotal = installationCost + ammount;
-    setInstallationCost(newTotal);
-    setProfit((prev) => prev - ammount);
-  };
-
-  const handleConnectivityChange = (ammount: number) => {
-    const newTotal = connectivityCost + ammount;
-    setConnectivityCost(newTotal);
-    setProfit((prev) => prev - ammount);
-  };
-
-  const handleLaborChange = (ammount: number) => {
-    const newTotal = laborTotal + ammount;
-    setLaborTotal(newTotal);
-    setProfit((prev) => prev - ammount);
-  };
   const data = [
     {
       Produs: `${getValues('Inverter.Brand')} ${safeGetValue('Inverter.kW')}kW ${getValues('Inverter.Type')}`,
@@ -331,29 +241,38 @@ const ProfitPage = () => {
       Produs: 'Total costuri fara TVA',
       CNT: 1,
       'U/M': 'Buc',
-      'Pret per Buc': totalCosts,
-      'Pret total': totalCosts,
+      'Pret per Buc': getValues('Costs'),
+      'Pret total': getValues('Costs'),
     },
     {
       Produs: 'Total costuri cu TVA',
       CNT: 1,
       'U/M': 'Buc',
-      'Pret per Buc': totalCosts * 1.09,
-      'Pret total': totalCosts * 1.09,
+      'Pret per Buc': getValues('Costs') * 1.09,
+      'Pret total': getValues('Costs') * 1.09,
     },
     {
       Produs: 'Impozit pe profit',
       CNT: 1,
       'U/M': 'Buc',
-      'Pret per Buc': profit * 0.16,
-      'Pret total': profit * 0.16,
+      'Pret per Buc': getValues('Tax'),
+      'Pret total': getValues('Tax'),
     },
     {
-      Produs: 'Total profit',
+      Produs: 'Total profit (fara impozit)',
       CNT: 1,
       'U/M': 'Buc',
-      'Pret per Buc': getValues('Price') - totalCosts - (getValues('Price') - totalCosts) * 0.16,
-      'Pret total': getValues('Price') - totalCosts - (getValues('Price') - totalCosts) * 0.16,
+      'Pret per Buc': getValues('Price') - getValues('Costs'),
+      'Pret total': getValues('Price') - getValues('Costs'),
+    },
+    {
+      Produs: 'Total profit (cu impozit)',
+      CNT: 1,
+      'U/M': 'Buc',
+      'Pret per Buc':
+        getValues('Price') - getValues('Costs') - (getValues('Price') - getValues('Costs')) * 0.16,
+      'Pret total':
+        getValues('Price') - getValues('Costs') - (getValues('Price') - getValues('Costs')) * 0.16,
     },
     {
       Produs: 'Total',
